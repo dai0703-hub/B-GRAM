@@ -212,3 +212,31 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40% 0px -55% 0px' });
 
 sections.forEach(s => sectionObserver.observe(s));
+
+/* ---------------------------
+   Vision section animation
+--------------------------- */
+(function initVisionAnimation() {
+  const vision = document.querySelector('.vision');
+  if (!vision) return;
+
+  // Split headline into masked per-line spans (overflow:hidden curtain effect)
+  const headline = vision.querySelector('.vision-headline');
+  if (headline) {
+    const lines = headline.innerHTML.split(/<br\s*\/?>/i);
+    headline.innerHTML = lines
+      .map(line => `<span class="vision-line-wrap"><span class="vision-line-text">${line.trim()}</span></span>`)
+      .join('');
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vision-animated');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  obs.observe(vision);
+})();

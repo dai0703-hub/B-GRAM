@@ -10,6 +10,7 @@
   <meta property="og:description" content="唯一無二の不動産を最大化へ導くパートナー。">
   <meta property="og:type" content="website">
 
+  <link rel="icon" href="assets/logo_m.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +18,7 @@
 
   <style>
     /* Inline nav active style */
-    .nav-menu a.active { color: var(--blue) !important; }
+    .nav-menu a.active { color: var(--gold) !important; }
     .nav-menu a.active::after { width: 100% !important; }
   </style>
 </head>
@@ -27,8 +28,7 @@
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-logo" aria-label="B-GRAM トップへ">
-      <!-- ロゴ: assets/logo-white.png（白文字版）を配置してください -->
-      <img src="assets/logo-white.png" alt="B-GRAM"
+      <img src="assets/logo_m.svg" alt="B-GRAM" class="nav-logo-img"
            onerror="this.src='assets/logo.png'; this.style.filter='brightness(0) invert(1)'">
     </a>
 
@@ -54,25 +54,58 @@
 
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="top" aria-label="メインビジュアル">
-  <div class="hero-bg"></div>
-  <canvas id="heroCanvas" aria-hidden="true"></canvas>
 
-  <div class="hero-content">
-    <p class="hero-label fade-in-up">REAL ESTATE &nbsp;|&nbsp; OSAKA, JAPAN</p>
+  <!-- 左パネル：ロゴ + サブ情報 -->
+  <div class="hero-left">
+    <div class="hero-logo-area fade-in-up">
+      <img src="assets/logo.svg" alt="B-GRAM" class="hero-logo-main"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="hero-logo-text-fallback" style="display:none;">B-GRAM</span>
+      <p class="hero-logo-caption">ビーグラム株式会社</p>
+    </div>
 
-    <h1 class="hero-headline fade-in-up delay-1">
-      唯一無二の不動産を<br>
-      <span>最大化へ導く</span><br>
-      パートナーとして
-    </h1>
+    <div class="hero-left-rule"></div>
 
-    <p class="hero-sub fade-in-up delay-2 serif">
-      B-GRAM — 二極化の時代を、ともに切り拓く
+    <p class="hero-left-label fade-in-up delay-1">Real Estate &nbsp;·&nbsp; Osaka</p>
+
+    <p class="hero-left-body fade-in-up delay-2">
+      大阪を拠点とする<br>
+      不動産コンサルティング<br>
+      カンパニー
     </p>
 
-    <div class="hero-cta fade-in-up delay-3">
-      <a href="#business" class="btn btn-primary">事業内容を見る</a>
-      <a href="#company"  class="btn btn-outline">会社概要</a>
+    <p class="hero-left-vertical">B-GRAM CO., LTD. &nbsp;·&nbsp; OSAKA, JAPAN</p>
+  </div>
+
+  <!-- 右パネル：キャッチコピー -->
+  <div class="hero-right">
+    <div class="hero-right-inner">
+
+      <p class="hero-right-label fade-in-up">Our Mission</p>
+
+      <h1 class="hero-headline fade-in-up delay-1">
+        唯一無二の<br>
+        不動産を最大化へ<br>
+        導くパートナー
+      </h1>
+
+      <div class="hero-cta fade-in-up delay-2">
+        <a href="#business" class="btn btn-primary">事業内容を見る</a>
+        <a href="#company"  class="btn btn-outline">会社概要</a>
+      </div>
+
+    </div>
+
+    <!-- 数値装飾 -->
+    <div class="hero-right-nums">
+      <div class="hero-stat">
+        <p class="hero-stat-num">大阪</p>
+        <p class="hero-stat-label">本社所在地</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-num">No.65425</p>
+        <p class="hero-stat-label">大阪府知事免許</p>
+      </div>
     </div>
   </div>
 
@@ -80,6 +113,7 @@
     <span>SCROLL</span>
     <div class="hero-scroll-line"></div>
   </div>
+
 </section>
 
 
@@ -188,14 +222,7 @@
       <!-- Left: Image -->
       <div class="reveal">
         <div class="company-image-wrap">
-          <!-- assets/company.jpg を入稿後に配置 -->
-          <img src="assets/company.jpg" alt="ビーグラム株式会社 オフィス" loading="lazy"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-          <!-- 入稿前プレースホルダー -->
-          <div class="company-img-placeholder" style="display:none;">
-            <img src="assets/logo.png" alt="B-GRAM">
-            <p>OSAKA, JAPAN</p>
-          </div>
+          <img src="assets/company.png" alt="本町TSビル — ビーグラム株式会社" loading="lazy">
         </div>
         <p class="company-caption">大阪市中央区　本町TSビル</p>
       </div>
@@ -312,10 +339,6 @@
 
     <div class="footer-top">
       <div>
-        <div class="footer-logo-wrap">
-          <img src="assets/logo-white.png" alt="B-GRAM"
-               onerror="this.src='assets/logo.png'; this.style.filter='brightness(0) invert(1)'">
-        </div>
         <p class="footer-info">
           ビーグラム株式会社<br>
           〒541-0059 大阪市中央区博労町4丁目7-5 本町TSビル601<br>
@@ -334,7 +357,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">© 2024 B-GRAM Co., Ltd. All Rights Reserved.</p>
+      <p class="footer-copy">© 2026 B-GRAM Co., Ltd. All Rights Reserved.</p>
       <p style="font-size:0.72rem; color:rgba(255,255,255,0.2); letter-spacing:0.05em;">
         大阪府知事（1）第65425号
       </p>

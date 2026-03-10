@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero 案A — White Premium | B-GRAM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:     #7DB5C8;
+      --dark:     #4E4039;
+      --charcoal: #1C1C1C;
+      --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    body { font-family: 'Noto Sans JP', sans-serif; background: #F7F5F2; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; z-index: 100;
+      background: transparent;
+    }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-logo-fallback {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; letter-spacing: 0.3em;
+      color: var(--charcoal); font-weight: 300;
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      color: rgba(28,28,28,0.55); text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--charcoal); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: #F7F5F2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 背景装飾：右下の淡い円 */
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -15%; right: -10%;
+      width: 55vw; height: 55vw;
+      border-radius: 50%;
+      border: 1px solid rgba(125,181,200,0.18);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -22%; right: -17%;
+      width: 70vw; height: 70vw;
+      border-radius: 50%;
+      border: 1px solid rgba(125,181,200,0.10);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* ロゴ — 大きくヒーローに配置 */
+    .hero-logo {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) 0.2s forwards;
+    }
+    .hero-logo img {
+      height: 56px; width: auto;
+      /* ロゴが白の場合は反転: filter: brightness(0); */
+    }
+    .hero-logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      letter-spacing: 0.55em;
+      color: var(--charcoal);
+      text-indent: 0.55em; /* letterspacingの補正 */
+    }
+
+    /* 区切り線 */
+    .hero-rule {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--blue), transparent);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) 0.5s forwards;
+    }
+
+    /* キャッチコピー */
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      letter-spacing: 0.45em;
+      color: rgba(28,28,28,0.45);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) 0.7s forwards;
+    }
+
+    .hero-headline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+      font-weight: 200;
+      color: var(--charcoal);
+      line-height: 1.9;
+      letter-spacing: 0.08em;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) 0.9s forwards;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease) 1.1s forwards;
+    }
+    .btn {
+      padding: 0.85rem 2.8rem;
+      font-size: 0.78rem; letter-spacing: 0.15em;
+      font-family: 'Noto Sans JP', sans-serif;
+      text-decoration: none; transition: all 0.3s;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: var(--charcoal); color: #fff;
+    }
+    .btn-primary:hover { background: #333; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--charcoal);
+      border: 1px solid rgba(28,28,28,0.3);
+    }
+    .btn-outline:hover { border-color: var(--charcoal); }
+
+    /* スクロール */
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.5s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem; letter-spacing: 0.35em;
+      color: rgba(28,28,28,0.3);
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, rgba(125,181,200,0.6), transparent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* 右端の縦テキスト装飾 */
+    .hero-side-text {
+      position: absolute; right: 3rem; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem; letter-spacing: 0.35em;
+      color: rgba(28,28,28,0.2);
+      white-space: nowrap;
+      opacity: 0;
+      animation: fadeUp 1.2s ease 1.3s forwards;
+    }
+
+    /* デモ注記 */
+    .demo-badge {
+      position: fixed; top: 1rem; right: 1rem;
+      background: var(--blue); color: #fff;
+      padding: 0.3rem 0.8rem; font-size: 0.7rem;
+      letter-spacing: 0.1em; z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="demo-badge">案A — White Premium</div>
+
+<nav>
+  <a href="#" class="nav-logo" aria-label="B-GRAM">
+    <img src="assets/logo.png" alt="B-GRAM"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fallback" style="display:none;">B-GRAM</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">VISION</a>
+    <a href="#">事業内容</a>
+    <a href="#">会社概要</a>
+    <a href="#">アクセス</a>
+    <a href="#">お問い合わせ</a>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <!-- ロゴ大きく配置 -->
+    <div class="hero-logo">
+      <img src="assets/logo.png" alt="B-GRAM"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="hero-logo-text" style="display:none;">B-GRAM</span>
+    </div>
+
+    <!-- 縦線 -->
+    <div class="hero-rule"></div>
+
+    <!-- 英語ラベル -->
+    <p class="hero-tagline">Real Estate &nbsp;·&nbsp; Osaka, Japan</p>
+
+    <!-- キャッチコピー：シンプルに -->
+    <h1 class="hero-headline">
+      唯一無二の不動産を、<br>最大化へ。
+    </h1>
+
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary">事業内容を見る</a>
+      <a href="#" class="btn btn-outline">会社概要</a>
+    </div>
+
+  </div>
+
+  <p class="hero-side-text">OSAKA &nbsp;·&nbsp; SINCE 2024</p>
+
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</section>
+
+</body>
+</html>
