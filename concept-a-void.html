@@ -11,7 +11,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
     :root {
-      --blue: #7DB5C8;
+      --blue: #7ea6b1;
+      --grey: #4e4a46;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -71,7 +72,6 @@
     }
     .op-logo img {
       height: 56px; width: auto;
-      filter: brightness(0) invert(1);
     }
     @keyframes opLogoIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -101,10 +101,10 @@
       opacity: 0;
       animation: cornerIn 0.6s ease 1.0s forwards;
     }
-    .op-corner.tl { top: 20vh; left: 20vw; border-top: 1px solid rgba(125,181,200,0.5); border-left: 1px solid rgba(125,181,200,0.5); }
-    .op-corner.tr { top: 20vh; right: 20vw; border-top: 1px solid rgba(125,181,200,0.5); border-right: 1px solid rgba(125,181,200,0.5); }
-    .op-corner.bl { bottom: 20vh; left: 20vw; border-bottom: 1px solid rgba(125,181,200,0.5); border-left: 1px solid rgba(125,181,200,0.5); }
-    .op-corner.br { bottom: 20vh; right: 20vw; border-bottom: 1px solid rgba(125,181,200,0.5); border-right: 1px solid rgba(125,181,200,0.5); }
+    .op-corner.tl { top: 20vh; left: 20vw; border-top: 1px solid rgba(126,166,177,0.5); border-left: 1px solid rgba(126,166,177,0.5); }
+    .op-corner.tr { top: 20vh; right: 20vw; border-top: 1px solid rgba(126,166,177,0.5); border-right: 1px solid rgba(126,166,177,0.5); }
+    .op-corner.bl { bottom: 20vh; left: 20vw; border-bottom: 1px solid rgba(126,166,177,0.5); border-left: 1px solid rgba(126,166,177,0.5); }
+    .op-corner.br { bottom: 20vh; right: 20vw; border-bottom: 1px solid rgba(126,166,177,0.5); border-right: 1px solid rgba(126,166,177,0.5); }
     @keyframes cornerIn {
       from { opacity: 0; transform: scale(1.8); }
       to   { opacity: 1; transform: scale(1); }
@@ -145,7 +145,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(10rem, 22vw, 22rem);
       font-weight: 300;
-      color: rgba(255,255,255,0.04);
+      color: rgba(126,166,177,0.06);
       line-height: 1;
       letter-spacing: -0.02em;
       user-select: none;
@@ -167,8 +167,8 @@
       width: 1px; height: 0;
       background: linear-gradient(to bottom,
         transparent,
-        rgba(125,181,200,0.4) 20%,
-        rgba(125,181,200,0.4) 80%,
+        rgba(126,166,177,0.4) 20%,
+        rgba(126,166,177,0.4) 80%,
         transparent
       );
       animation: vlineIn 1.2s var(--ease-out) 0.8s forwards;
@@ -226,6 +226,19 @@
       color: var(--blue);
     }
 
+    .hero-philosophy {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.78rem;
+      font-weight: 200;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.18em;
+      margin-bottom: 3rem;
+      padding-left: 0.5rem;
+      border-left: 1px solid rgba(126,166,177,0.3);
+      opacity: 0;
+      animation: itemIn 0.8s var(--ease-out) 1.4s forwards;
+    }
+
     .hero-cta {
       display: flex; flex-direction: column; gap: 0.75rem;
       opacity: 0;
@@ -249,7 +262,7 @@
     }
     .btn-void:hover {
       color: #fff;
-      border-color: rgba(125,181,200,0.5);
+      border-color: rgba(126,166,177,0.5);
     }
     .btn-void:hover::after { transform: translateX(6px); }
 
@@ -258,8 +271,7 @@
     }
     .hero-center-logo img {
       height: 40px; width: auto;
-      filter: brightness(0) invert(1);
-      opacity: 0.15;
+      opacity: 0.4;
     }
 
     .hero-right {
@@ -312,7 +324,7 @@
     }
     .hero-scroll-line {
       width: 1px; height: 40px;
-      background: linear-gradient(to bottom, rgba(125,181,200,0.6), transparent);
+      background: linear-gradient(to bottom, rgba(126,166,177,0.6), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
@@ -354,7 +366,7 @@
   <div class="op-logo">
     <img src="assets/logo_m.svg" alt="B-GRAM">
   </div>
-  <p class="op-tag">Real Estate &nbsp;·&nbsp; Osaka, Japan</p>
+  <p class="op-tag">Real Estate</p>
 </div>
 
 <!-- ── HERO ── -->
@@ -370,11 +382,12 @@
 
   <div class="hero-content">
     <div class="hero-left">
-      <p class="hero-eyebrow">Property &nbsp;·&nbsp; Innovation</p>
+      <p class="hero-eyebrow">Property &nbsp;·&nbsp; Innovation &nbsp;·&nbsp; B-GRAM</p>
       <h1 class="hero-h1">
         唯一無二の不動産を、<br>
         <em>最大化</em>へ導く。
       </h1>
+      <p class="hero-philosophy">資産に、魂を吹き込む。</p>
       <div class="hero-cta">
         <a href="#" class="btn-void">事業内容を見る</a>
         <a href="#" class="btn-void">会社概要</a>
@@ -394,6 +407,9 @@
         <div class="hero-stat-num" style="font-size:1.1rem; letter-spacing:0.12em; color:rgba(255,255,255,0.55); font-family:'Noto Serif JP',serif; font-weight:200; line-height:1.8;">二極化の時代を、<br>ともに切り拓く</div>
         <div class="hero-stat-label">B-GRAM Co., Ltd.</div>
       </div>
+      <div class="hero-stat" style="margin-top: 1rem;">
+        <div style="font-family:'Cormorant Garamond',serif; font-size:0.62rem; letter-spacing:0.35em; color:rgba(126,166,177,0.5); text-transform:uppercase; line-height:1.8;">Beyond Every<br>Gram of Value.</div>
+      </div>
     </div>
   </div>
 
@@ -402,7 +418,7 @@
       <div class="hero-scroll-line"></div>
       SCROLL
     </div>
-    <p class="hero-location">Osaka · Japan · Est. 2020</p>
+    <p class="hero-location">B-GRAM Co., Ltd.</p>
   </div>
 </section>
 

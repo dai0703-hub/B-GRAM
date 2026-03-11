@@ -11,7 +11,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #080808; }
     :root {
-      --red: #E63946;
+      --blue: #7ea6b1;
+      --grey: #4e4a46;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -41,7 +42,7 @@
       animation: slashIn 0.6s var(--ease) 0.3s forwards;
     }
     .slash-line:nth-child(2) {
-      background: rgba(230,57,70,0.6);
+      background: rgba(126,166,177,0.6);
       width: 1px;
       transform: translate(-50%,-50%) rotate(-20deg) scaleY(0);
       animation: slashIn 0.6s var(--ease) 0.6s forwards;
@@ -75,7 +76,17 @@
 
     .op-logo img {
       height: 48px; width: auto;
-      filter: brightness(0) invert(1);
+    }
+
+    /* 左上固定ロゴ */
+    .nav-logo-fixed {
+      position: fixed; top: 1.6rem; left: 2.5rem;
+      z-index: 8998;
+      opacity: 0;
+      animation: itemIn 0.6s ease 0.5s forwards;
+    }
+    .nav-logo-fixed img {
+      height: 28px; width: auto;
     }
 
     .op-name {
@@ -87,7 +98,7 @@
       line-height: 1;
     }
     .op-name span {
-      color: var(--red);
+      color: var(--blue);
     }
 
     .op-sub {
@@ -148,7 +159,7 @@
       position: absolute;
       top: 0; right: 38vw;
       width: 1px; height: 100%;
-      background: linear-gradient(to bottom, transparent 0%, var(--red) 30%, var(--red) 70%, transparent 100%);
+      background: linear-gradient(to bottom, transparent 0%, var(--blue) 30%, var(--blue) 70%, transparent 100%);
       transform: rotate(-8deg) translateX(0);
       opacity: 0;
       animation: heroSlashIn 1s ease 0.6s forwards;
@@ -170,7 +181,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.68rem;
       letter-spacing: 0.6em;
-      color: var(--red);
+      color: var(--blue);
       text-transform: uppercase;
       display: flex; align-items: center; gap: 0.8rem;
       margin-bottom: 2rem;
@@ -178,7 +189,7 @@
       animation: itemIn 0.7s var(--ease) 0.8s forwards;
     }
     .hero-eyebrow::before {
-      content: '/'; color: var(--red); font-size: 1.1rem; font-weight: 300;
+      content: '/'; color: var(--blue); font-size: 1.1rem; font-weight: 300;
     }
 
     .hero-h1 {
@@ -204,6 +215,28 @@
       animation: itemIn 0.7s var(--ease) 1.2s forwards;
     }
 
+    .hero-philosophy-b {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+      letter-spacing: 0.5em;
+      color: rgba(126,166,177,0.6);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 0.9s forwards;
+    }
+
+    .hero-philosophy-ja {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(0.75rem, 1.1vw, 0.88rem);
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 2.8rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.35s forwards;
+    }
+
     /* CTA */
     .hero-cta {
       display: flex; gap: 1.2rem; align-items: center;
@@ -219,12 +252,12 @@
       color: #fff;
       text-decoration: none;
       padding: 1rem 2.4rem;
-      background: var(--red);
+      background: var(--blue);
       clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 14px 100%);
       transition: background 0.25s, transform 0.25s;
     }
     .btn-slash:hover {
-      background: #c62a37;
+      background: #5d8d9a;
       transform: translateY(-2px);
     }
     .btn-ghost {
@@ -288,7 +321,7 @@
     }
     .scroll-bar {
       width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--red), transparent);
+      background: linear-gradient(to bottom, var(--blue), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
@@ -301,7 +334,7 @@
     /* Demo badge */
     .badge {
       position: fixed; top: 1.2rem; right: 1.2rem;
-      background: var(--red); color: #fff;
+      background: var(--blue); color: #fff;
       padding: 0.3rem 0.9rem;
       font-size: 0.65rem; letter-spacing: 0.15em;
       z-index: 8999; font-family: 'Cormorant Garamond', serif;
@@ -311,6 +344,11 @@
 <body>
 
 <div class="badge">案B — SLASH</div>
+
+<!-- 左上カラーロゴ -->
+<div class="nav-logo-fixed">
+  <img src="assets/logo_m.svg" alt="B-GRAM">
+</div>
 
 <!-- ── OPENING ── -->
 <div id="opening">
@@ -323,7 +361,7 @@
       <img src="assets/logo_m.svg" alt="B-GRAM">
     </div>
     <div class="op-name">B<span>-</span>GRAM</div>
-    <p class="op-sub">Real Estate &nbsp;/&nbsp; Osaka &nbsp;/&nbsp; Japan</p>
+    <p class="op-sub">Real Estate</p>
   </div>
 </div>
 
@@ -339,9 +377,10 @@
   <div class="hero-slash"></div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Property &nbsp; Innovation &nbsp; Osaka</p>
+    <p class="hero-philosophy-b">B — Beyond &nbsp;·&nbsp; Build &nbsp;·&nbsp; Bridge</p>
     <h1 class="hero-h1">唯一無二の<br>不動産を<br>最大化へ。</h1>
     <p class="hero-h1-sub">二極化の時代を、ともに切り拓く</p>
+    <p class="hero-philosophy-ja">不動産の「文体」を変える会社。</p>
     <div class="hero-cta">
       <a href="#" class="btn-slash">事業内容を見る</a>
       <a href="#" class="btn-ghost">COMPANY →</a>
@@ -350,11 +389,6 @@
 
   <div class="hero-strip">
     <div class="strip-item">
-      <span class="strip-label">Location</span>
-      <span class="strip-value">Osaka, Japan</span>
-    </div>
-    <div class="strip-sep"></div>
-    <div class="strip-item">
       <span class="strip-label">Industry</span>
       <span class="strip-value">Real Estate</span>
     </div>
@@ -362,6 +396,11 @@
     <div class="strip-item">
       <span class="strip-label">Concept</span>
       <span class="strip-value">Maximize Uniqueness</span>
+    </div>
+    <div class="strip-sep"></div>
+    <div class="strip-item">
+      <span class="strip-label">Company</span>
+      <span class="strip-value">B-GRAM Co., Ltd.</span>
     </div>
   </div>
 

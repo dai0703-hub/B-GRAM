@@ -11,8 +11,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #040404; }
     :root {
-      --cyan: #00E5FF;
-      --cyan-dim: rgba(0,229,255,0.18);
+      --blue: #7ea6b1;
+      --grey: #4e4a46;
+      --blue-dim: rgba(126,166,177,0.18);
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -35,17 +36,17 @@
     }
     .op-frame:nth-child(1) {
       width: 44vmin; height: 28vmin;
-      border-color: rgba(0,229,255,0.45);
+      border-color: rgba(126,166,177,0.45);
       animation: frameExpand 0.7s var(--ease) 0.2s forwards;
     }
     .op-frame:nth-child(2) {
       width: 56vmin; height: 36vmin;
-      border-color: rgba(0,229,255,0.2);
+      border-color: rgba(126,166,177,0.2);
       animation: frameExpand 0.7s var(--ease) 0.4s forwards;
     }
     .op-frame:nth-child(3) {
       width: 70vmin; height: 46vmin;
-      border-color: rgba(0,229,255,0.08);
+      border-color: rgba(126,166,177,0.08);
       animation: frameExpand 0.7s var(--ease) 0.6s forwards;
     }
     @keyframes frameExpand {
@@ -62,7 +63,7 @@
     .op-corner-detail::after {
       content: '';
       position: absolute;
-      background: var(--cyan);
+      background: var(--blue);
     }
     .op-corner-detail::before { width: 8px; height: 1px; top: 0; left: 0; }
     .op-corner-detail::after  { width: 1px; height: 8px; top: 0; left: 0; }
@@ -81,23 +82,22 @@
     .op-logo {
       opacity: 0;
       animation: logoGlow 1s var(--ease) 0.9s forwards;
-      filter: drop-shadow(0 0 0px rgba(0,229,255,0));
+      filter: drop-shadow(0 0 0px rgba(126,166,177,0));
     }
     .op-logo img {
       height: 50px; width: auto;
-      filter: brightness(0) invert(1);
     }
     @keyframes logoGlow {
-      0%  { opacity: 0; filter: drop-shadow(0 0 0px rgba(0,229,255,0)) brightness(0) invert(1); }
-      60% { opacity: 1; filter: drop-shadow(0 0 24px rgba(0,229,255,0.6)) brightness(0) invert(1); }
-      100%{ opacity: 1; filter: drop-shadow(0 0 10px rgba(0,229,255,0.25)) brightness(0) invert(1); }
+      0%  { opacity: 0; filter: drop-shadow(0 0 0px rgba(126,166,177,0)) brightness(0) invert(1); }
+      60% { opacity: 1; filter: drop-shadow(0 0 24px rgba(126,166,177,0.6)) brightness(0) invert(1); }
+      100%{ opacity: 1; filter: drop-shadow(0 0 10px rgba(126,166,177,0.25)) brightness(0) invert(1); }
     }
 
     .op-label {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.58rem;
       letter-spacing: 0.7em;
-      color: var(--cyan);
+      color: var(--blue);
       text-transform: uppercase;
       opacity: 0;
       animation: fadeIn 0.6s ease 1.4s forwards;
@@ -152,26 +152,26 @@
     }
     @keyframes videoIn {
       from { opacity: 0; }
-      to   { opacity: 0.65; }
+      to   { opacity: 0.82; }
     }
 
-    /* Overlay: dark with subtle cyan tint */
+    /* Overlay: dark with brand tint */
     .hero-overlay {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 50% 40%, rgba(0,40,50,0.4) 0%, rgba(4,4,4,0.82) 65%),
-        linear-gradient(to bottom, rgba(4,4,4,0.5) 0%, rgba(4,4,4,0.9) 100%);
+        radial-gradient(ellipse at 50% 35%, rgba(78,74,70,0.15) 0%, rgba(4,4,4,0.55) 60%),
+        linear-gradient(to bottom, rgba(4,4,4,0.35) 0%, rgba(4,4,4,0.78) 100%);
     }
 
-    /* Scan lines */
+    /* Scan lines (very subtle) */
     .hero-scan {
       position: absolute; inset: 0;
       background: repeating-linear-gradient(
         0deg,
         transparent,
-        transparent 3px,
-        rgba(0,0,0,0.07) 3px,
-        rgba(0,0,0,0.07) 6px
+        transparent 4px,
+        rgba(0,0,0,0.03) 4px,
+        rgba(0,0,0,0.03) 8px
       );
       pointer-events: none;
     }
@@ -182,7 +182,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 60vmin; height: 75vh;
-      border: 1px solid rgba(0,229,255,0.1);
+      border: 1px solid rgba(126,166,177,0.22);
       pointer-events: none;
       opacity: 0;
       animation: heroFrameIn 1s ease 0.8s forwards;
@@ -197,7 +197,7 @@
       position: absolute;
       left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(to right, transparent 5%, var(--cyan) 20%, var(--cyan) 80%, transparent 95%);
+      background: linear-gradient(to right, transparent 5%, var(--blue) 20%, var(--blue) 80%, transparent 95%);
       opacity: 0;
     }
     .hero-hline.top {
@@ -210,7 +210,7 @@
     }
     @keyframes hlineIn {
       from { opacity: 0; transform: scaleX(0); }
-      to   { opacity: 0.2; transform: scaleX(1); }
+      to   { opacity: 0.38; transform: scaleX(1); }
     }
 
     /* Center content */
@@ -226,7 +226,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.62rem;
       letter-spacing: 0.7em;
-      color: var(--cyan);
+      color: var(--blue);
       text-transform: uppercase;
       margin-bottom: 2.5rem;
       opacity: 0;
@@ -237,15 +237,14 @@
       margin-bottom: 2.5rem;
       opacity: 0;
       animation: heroLogoIn 0.8s var(--ease) 1.2s forwards;
-      filter: drop-shadow(0 0 18px rgba(0,229,255,0.2));
+      filter: drop-shadow(0 0 18px rgba(126,166,177,0.2));
     }
     .hero-logo img {
       height: 52px; width: auto;
-      filter: brightness(0) invert(1);
     }
     @keyframes heroLogoIn {
-      from { opacity: 0; transform: translateY(10px); filter: drop-shadow(0 0 0px rgba(0,229,255,0)); }
-      to   { opacity: 1; transform: translateY(0); filter: drop-shadow(0 0 18px rgba(0,229,255,0.2)); }
+      from { opacity: 0; transform: translateY(10px); filter: drop-shadow(0 0 0px rgba(126,166,177,0)); }
+      to   { opacity: 1; transform: translateY(0); filter: drop-shadow(0 0 18px rgba(126,166,177,0.2)); }
     }
 
     .hero-h1 {
@@ -260,7 +259,7 @@
       animation: itemIn 0.7s var(--ease) 1.5s forwards;
     }
     .hero-h1 .accent {
-      color: var(--cyan);
+      color: var(--blue);
       font-style: normal;
     }
 
@@ -268,10 +267,21 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.88rem;
       letter-spacing: 0.3em;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 3.5rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
       opacity: 0;
       animation: itemIn 0.7s var(--ease) 1.7s forwards;
+    }
+
+    .hero-sub-philosophy {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.72rem;
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      color: rgba(126,166,177,0.55);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.9s forwards;
     }
 
     /* CTA */
@@ -286,24 +296,24 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.78rem;
       letter-spacing: 0.3em;
-      color: var(--cyan);
+      color: var(--blue);
       text-decoration: none;
       padding: 0.85rem 2.2rem;
-      border: 1px solid var(--cyan);
+      border: 1px solid var(--blue);
       transition: all 0.3s;
       overflow: hidden;
     }
     .btn-neon::before {
       content: '';
       position: absolute; inset: 0;
-      background: var(--cyan-dim);
+      background: var(--blue-dim);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.3s var(--ease);
     }
     .btn-neon:hover::before { transform: scaleX(1); }
     .btn-neon:hover {
-      box-shadow: 0 0 20px rgba(0,229,255,0.2);
+      box-shadow: 0 0 20px rgba(126,166,177,0.2);
     }
     .btn-neon span { position: relative; z-index: 1; }
 
@@ -335,12 +345,12 @@
     }
     .bottom-dot {
       width: 4px; height: 4px; border-radius: 50%;
-      background: var(--cyan);
+      background: var(--blue);
       animation: dotPulse 2s ease-in-out infinite;
     }
     @keyframes dotPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.4); }
-      50% { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
+      0%,100% { box-shadow: 0 0 0 0 rgba(126,166,177,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(126,166,177,0); }
     }
     .bottom-text {
       font-family: 'Cormorant Garamond', serif;
@@ -355,7 +365,7 @@
     }
     .scroll-track {
       width: 1px; height: 45px;
-      background: rgba(0,229,255,0.15);
+      background: rgba(126,166,177,0.15);
       position: relative; overflow: hidden;
     }
     .scroll-track::after {
@@ -363,7 +373,7 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 40%;
-      background: var(--cyan);
+      background: var(--blue);
       animation: scrollSlide 2s ease-in-out infinite;
     }
     @keyframes scrollSlide {
@@ -385,7 +395,7 @@
     /* Demo badge */
     .badge {
       position: fixed; top: 1.2rem; right: 1.2rem;
-      background: var(--cyan); color: #040404;
+      background: var(--blue); color: #fff;
       padding: 0.3rem 0.9rem;
       font-size: 0.65rem; letter-spacing: 0.15em;
       z-index: 8999; font-family: 'Cormorant Garamond', serif;
@@ -416,7 +426,7 @@
     <div class="op-logo">
       <img src="assets/logo_m.svg" alt="B-GRAM">
     </div>
-    <p class="op-label">Osaka &nbsp;·&nbsp; Real Estate &nbsp;·&nbsp; Japan</p>
+    <p class="op-label">Real Estate</p>
   </div>
 </div>
 
@@ -435,7 +445,7 @@
   <div class="hero-hline bot"></div>
 
   <div class="hero-content">
-    <p class="hero-overline">B-GRAM Co., Ltd. &nbsp;·&nbsp; Osaka, Japan</p>
+    <p class="hero-overline">Beyond Every Gram of Value.</p>
     <div class="hero-logo">
       <img src="assets/logo_m.svg" alt="B-GRAM">
     </div>
@@ -444,6 +454,7 @@
       <em class="accent">最大化</em>へ導く。
     </h1>
     <p class="hero-sub">二極化の時代を、ともに切り拓く</p>
+    <p class="hero-sub-philosophy">1グラムの誠実さを、積み重ねる。</p>
     <div class="hero-cta">
       <a href="#" class="btn-neon"><span>事業内容を見る</span></a>
       <a href="#" class="btn-neon-ghost">COMPANY</a>
@@ -453,7 +464,7 @@
   <div class="hero-bottom">
     <div class="hero-bottom-left">
       <div class="bottom-dot"></div>
-      <span class="bottom-text">LIVE &nbsp; OSAKA · JAPAN</span>
+      <span class="bottom-text">LIVE &nbsp; B-GRAM Co., Ltd.</span>
     </div>
     <div class="hero-scroll">
       <div class="scroll-track"></div>
