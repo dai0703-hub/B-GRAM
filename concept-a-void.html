@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>案A — VOID | B-GRAM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    :root {
+      --blue: #7DB5C8;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ═══════════════════════════════════════
+       OPENING
+    ═══════════════════════════════════════ */
+    #opening {
+      position: fixed; inset: 0; z-index: 9000;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 0;
+    }
+    #opening.exit {
+      animation: opExit 0.9s cubic-bezier(0.76, 0, 0.24, 1) 0.1s forwards;
+    }
+    @keyframes opExit {
+      0%   { clip-path: inset(0 0 0 0); opacity: 1; }
+      100% { clip-path: inset(0 50% 0 50%); opacity: 0; }
+    }
+
+    /* Horizontal precision line */
+    .op-line {
+      width: 1px; height: 0;
+      background: rgba(255,255,255,0.25);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%) rotate(90deg);
+      transform-origin: center;
+      animation: lineGrow 0.7s var(--ease-out) 0.2s forwards;
+    }
+    @keyframes lineGrow {
+      from { height: 0; }
+      to   { height: 60vh; }
+    }
+
+    .op-line-h {
+      width: 0; height: 1px;
+      background: rgba(255,255,255,0.12);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: lineGrowH 1s var(--ease-out) 0.5s forwards;
+    }
+    @keyframes lineGrowH {
+      from { width: 0; }
+      to   { width: 45vw; }
+    }
+
+    /* Logo */
+    .op-logo {
+      position: relative; z-index: 2;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: opLogoIn 1s var(--ease-out) 0.7s forwards;
+      margin-bottom: 2.5rem;
+    }
+    .op-logo img {
+      height: 56px; width: auto;
+      filter: brightness(0) invert(1);
+    }
+    @keyframes opLogoIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tagline */
+    .op-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.6em;
+      color: rgba(255,255,255,0.25);
+      text-transform: uppercase;
+      position: relative; z-index: 2;
+      opacity: 0;
+      animation: opTagIn 1s ease 1.4s forwards;
+    }
+    @keyframes opTagIn {
+      from { opacity: 0; letter-spacing: 0.3em; }
+      to   { opacity: 1; letter-spacing: 0.6em; }
+    }
+
+    /* Corner accents */
+    .op-corner {
+      position: absolute;
+      width: 24px; height: 24px;
+      opacity: 0;
+      animation: cornerIn 0.6s ease 1.0s forwards;
+    }
+    .op-corner.tl { top: 20vh; left: 20vw; border-top: 1px solid rgba(125,181,200,0.5); border-left: 1px solid rgba(125,181,200,0.5); }
+    .op-corner.tr { top: 20vh; right: 20vw; border-top: 1px solid rgba(125,181,200,0.5); border-right: 1px solid rgba(125,181,200,0.5); }
+    .op-corner.bl { bottom: 20vh; left: 20vw; border-bottom: 1px solid rgba(125,181,200,0.5); border-left: 1px solid rgba(125,181,200,0.5); }
+    .op-corner.br { bottom: 20vh; right: 20vw; border-bottom: 1px solid rgba(125,181,200,0.5); border-right: 1px solid rgba(125,181,200,0.5); }
+    @keyframes cornerIn {
+      from { opacity: 0; transform: scale(1.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden; background: #000;
+    }
+
+    .hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: heroVideoIn 2s ease 0s forwards;
+    }
+    @keyframes heroVideoIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Multi-layer overlay for cinematic look */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(105deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.65) 100%),
+        linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 40%);
+    }
+
+    /* Giant background B-GRAM text */
+    .hero-watermark {
+      position: absolute;
+      bottom: -0.15em; right: -0.05em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(10rem, 22vw, 22rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+      opacity: 0;
+      animation: watermarkIn 2s ease 0.5s forwards;
+    }
+    @keyframes watermarkIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Vertical precision line */
+    .hero-vline {
+      position: absolute;
+      left: calc(50% - 28vw);
+      top: 12%;
+      width: 1px; height: 0;
+      background: linear-gradient(to bottom,
+        transparent,
+        rgba(125,181,200,0.4) 20%,
+        rgba(125,181,200,0.4) 80%,
+        transparent
+      );
+      animation: vlineIn 1.2s var(--ease-out) 0.8s forwards;
+    }
+    @keyframes vlineIn {
+      from { height: 0; top: 50%; }
+      to   { height: 76%; top: 12%; }
+    }
+
+    /* Content layout */
+    .hero-content {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 52px 1fr;
+      align-items: center;
+      padding: 0 8vw;
+      gap: 0;
+    }
+
+    .hero-left {
+      padding-right: 3vw;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.55em;
+      color: var(--blue);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: itemIn 0.8s var(--ease-out) 1.0s forwards;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 36px; height: 1px;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .hero-h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.9rem, 3.2vw, 3.2rem);
+      font-weight: 200;
+      color: #fff;
+      line-height: 2.0;
+      letter-spacing: 0.03em;
+      margin-bottom: 2.8rem;
+      opacity: 0;
+      animation: itemIn 0.8s var(--ease-out) 1.2s forwards;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .hero-cta {
+      display: flex; flex-direction: column; gap: 0.75rem;
+      opacity: 0;
+      animation: itemIn 0.8s var(--ease-out) 1.6s forwards;
+    }
+    .btn-void {
+      display: inline-flex; align-items: center; gap: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      width: fit-content;
+      transition: all 0.35s;
+    }
+    .btn-void::after {
+      content: '→'; color: var(--blue);
+      transition: transform 0.35s;
+    }
+    .btn-void:hover {
+      color: #fff;
+      border-color: rgba(125,181,200,0.5);
+    }
+    .btn-void:hover::after { transform: translateX(6px); }
+
+    .hero-center-logo {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-center-logo img {
+      height: 40px; width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.15;
+    }
+
+    .hero-right {
+      padding-left: 3vw;
+      display: flex; flex-direction: column; gap: 2rem;
+      opacity: 0;
+      animation: itemInRight 0.8s var(--ease-out) 1.8s forwards;
+    }
+    @keyframes itemInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-stat {
+      border-left: 1px solid rgba(255,255,255,0.1);
+      padding-left: 1.5rem;
+    }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      color: #fff;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+    .hero-stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.3);
+      margin-top: 0.4rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Bottom bar */
+    .hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 8vw;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      opacity: 0;
+      animation: itemIn 0.8s ease 2.2s forwards;
+    }
+    .hero-scroll-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      color: rgba(255,255,255,0.2);
+      writing-mode: vertical-rl;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(125,181,200,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+    .hero-location {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    @keyframes itemIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Demo badge */
+    .badge {
+      position: fixed; top: 1.2rem; right: 1.2rem;
+      background: var(--blue); color: #fff;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      z-index: 8999; font-family: 'Cormorant Garamond', serif;
+    }
+  </style>
+</head>
+<body>
+
+<div class="badge">案A — VOID</div>
+
+<!-- ── OPENING ── -->
+<div id="opening">
+  <div class="op-line"></div>
+  <div class="op-line-h"></div>
+  <div class="op-corner tl"></div>
+  <div class="op-corner tr"></div>
+  <div class="op-corner bl"></div>
+  <div class="op-corner br"></div>
+  <div class="op-logo">
+    <img src="assets/logo_m.svg" alt="B-GRAM">
+  </div>
+  <p class="op-tag">Real Estate &nbsp;·&nbsp; Osaka, Japan</p>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/bg-hero.mov" type="video/mp4">
+    <source src="assets/bg-hero.mov" type="video/quicktime">
+  </video>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-watermark">B-GRAM</div>
+  <div class="hero-vline"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Property &nbsp;·&nbsp; Innovation</p>
+      <h1 class="hero-h1">
+        唯一無二の不動産を、<br>
+        <em>最大化</em>へ導く。
+      </h1>
+      <div class="hero-cta">
+        <a href="#" class="btn-void">事業内容を見る</a>
+        <a href="#" class="btn-void">会社概要</a>
+      </div>
+    </div>
+
+    <div class="hero-center-logo">
+      <img src="assets/logo_m.svg" alt="">
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">二極化</div>
+        <div class="hero-stat-label">The Age of Polarization</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" style="font-size:1.1rem; letter-spacing:0.12em; color:rgba(255,255,255,0.55); font-family:'Noto Serif JP',serif; font-weight:200; line-height:1.8;">二極化の時代を、<br>ともに切り拓く</div>
+        <div class="hero-stat-label">B-GRAM Co., Ltd.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-scroll-text">
+      <div class="hero-scroll-line"></div>
+      SCROLL
+    </div>
+    <p class="hero-location">Osaka · Japan · Est. 2020</p>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', () => {
+    const opening = document.getElementById('opening');
+    setTimeout(() => {
+      opening.classList.add('exit');
+      setTimeout(() => { opening.style.display = 'none'; }, 1000);
+    }, 3200);
+  });
+</script>
+</body>
+</html>

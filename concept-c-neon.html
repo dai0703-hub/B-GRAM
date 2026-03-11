@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>案C — NEON NOIR | B-GRAM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #040404; }
+    :root {
+      --cyan: #00E5FF;
+      --cyan-dim: rgba(0,229,255,0.18);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ═══════════════════════════════════════
+       OPENING
+    ═══════════════════════════════════════ */
+    #opening {
+      position: fixed; inset: 0; z-index: 9000;
+      background: #040404;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Concentric rectangles expanding from center */
+    .op-frame {
+      position: absolute;
+      border: 1px solid transparent;
+      border-radius: 0;
+      transform: scale(0);
+      opacity: 0;
+    }
+    .op-frame:nth-child(1) {
+      width: 44vmin; height: 28vmin;
+      border-color: rgba(0,229,255,0.45);
+      animation: frameExpand 0.7s var(--ease) 0.2s forwards;
+    }
+    .op-frame:nth-child(2) {
+      width: 56vmin; height: 36vmin;
+      border-color: rgba(0,229,255,0.2);
+      animation: frameExpand 0.7s var(--ease) 0.4s forwards;
+    }
+    .op-frame:nth-child(3) {
+      width: 70vmin; height: 46vmin;
+      border-color: rgba(0,229,255,0.08);
+      animation: frameExpand 0.7s var(--ease) 0.6s forwards;
+    }
+    @keyframes frameExpand {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    /* Corner details on inner frame */
+    .op-corner-detail {
+      position: absolute;
+      width: 8px; height: 8px;
+    }
+    .op-corner-detail::before,
+    .op-corner-detail::after {
+      content: '';
+      position: absolute;
+      background: var(--cyan);
+    }
+    .op-corner-detail::before { width: 8px; height: 1px; top: 0; left: 0; }
+    .op-corner-detail::after  { width: 1px; height: 8px; top: 0; left: 0; }
+    .op-corner-detail.tr { top: -4px; right: -4px; transform: rotate(90deg); }
+    .op-corner-detail.bl { bottom: -4px; left: -4px; transform: rotate(270deg); }
+    .op-corner-detail.br { bottom: -4px; right: -4px; transform: rotate(180deg); }
+    .op-frame:nth-child(1) .op-corner-detail { opacity: 0; animation: fadeIn 0.4s ease 0.8s forwards; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* Logo inside frames */
+    .op-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+    }
+
+    .op-logo {
+      opacity: 0;
+      animation: logoGlow 1s var(--ease) 0.9s forwards;
+      filter: drop-shadow(0 0 0px rgba(0,229,255,0));
+    }
+    .op-logo img {
+      height: 50px; width: auto;
+      filter: brightness(0) invert(1);
+    }
+    @keyframes logoGlow {
+      0%  { opacity: 0; filter: drop-shadow(0 0 0px rgba(0,229,255,0)) brightness(0) invert(1); }
+      60% { opacity: 1; filter: drop-shadow(0 0 24px rgba(0,229,255,0.6)) brightness(0) invert(1); }
+      100%{ opacity: 1; filter: drop-shadow(0 0 10px rgba(0,229,255,0.25)) brightness(0) invert(1); }
+    }
+
+    .op-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.7em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 1.4s forwards;
+    }
+
+    /* Scan lines effect overlay */
+    .op-scan {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Pulse animation on frames */
+    .op-frame.pulse {
+      animation: framePulse 1s ease-in-out infinite;
+    }
+    @keyframes framePulse {
+      0%,100% { opacity: 0.8; }
+      50%     { opacity: 0.4; }
+    }
+
+    /* Exit: implode */
+    #opening.exit {
+      animation: openingImplode 0.8s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    }
+    @keyframes openingImplode {
+      0%   { opacity: 1; transform: scale(1); }
+      60%  { opacity: 1; transform: scale(1.04); }
+      100% { opacity: 0; transform: scale(0.92); }
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      position: relative; width: 100%; height: 100vh; overflow: hidden;
+      background: #040404;
+    }
+
+    .hero-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: videoIn 2s ease 0.3s forwards;
+    }
+    @keyframes videoIn {
+      from { opacity: 0; }
+      to   { opacity: 0.65; }
+    }
+
+    /* Overlay: dark with subtle cyan tint */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(0,40,50,0.4) 0%, rgba(4,4,4,0.82) 65%),
+        linear-gradient(to bottom, rgba(4,4,4,0.5) 0%, rgba(4,4,4,0.9) 100%);
+    }
+
+    /* Scan lines */
+    .hero-scan {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 6px
+      );
+      pointer-events: none;
+    }
+
+    /* Decorative frame */
+    .hero-frame {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vmin; height: 75vh;
+      border: 1px solid rgba(0,229,255,0.1);
+      pointer-events: none;
+      opacity: 0;
+      animation: heroFrameIn 1s ease 0.8s forwards;
+    }
+    @keyframes heroFrameIn {
+      from { opacity: 0; transform: translate(-50%,-50%) scale(1.08); }
+      to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    }
+
+    /* Horizontal cyan lines */
+    .hero-hline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent 5%, var(--cyan) 20%, var(--cyan) 80%, transparent 95%);
+      opacity: 0;
+    }
+    .hero-hline.top {
+      top: 18%;
+      animation: hlineIn 0.8s ease 1.0s forwards;
+    }
+    .hero-hline.bot {
+      bottom: 18%;
+      animation: hlineIn 0.8s ease 1.2s forwards;
+    }
+    @keyframes hlineIn {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 0.2; transform: scaleX(1); }
+    }
+
+    /* Center content */
+    .hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      gap: 0;
+    }
+
+    .hero-overline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.7em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.0s forwards;
+    }
+
+    .hero-logo {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: heroLogoIn 0.8s var(--ease) 1.2s forwards;
+      filter: drop-shadow(0 0 18px rgba(0,229,255,0.2));
+    }
+    .hero-logo img {
+      height: 52px; width: auto;
+      filter: brightness(0) invert(1);
+    }
+    @keyframes heroLogoIn {
+      from { opacity: 0; transform: translateY(10px); filter: drop-shadow(0 0 0px rgba(0,229,255,0)); }
+      to   { opacity: 1; transform: translateY(0); filter: drop-shadow(0 0 18px rgba(0,229,255,0.2)); }
+    }
+
+    .hero-h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3.4rem);
+      font-weight: 200;
+      color: #fff;
+      line-height: 2.0;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.5s forwards;
+    }
+    .hero-h1 .accent {
+      color: var(--cyan);
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.7s forwards;
+    }
+
+    /* CTA */
+    .hero-cta {
+      display: flex; gap: 1.5rem; align-items: center;
+      opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.9s forwards;
+    }
+    .btn-neon {
+      position: relative;
+      display: inline-flex; align-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      color: var(--cyan);
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border: 1px solid var(--cyan);
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    .btn-neon::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--cyan-dim);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-neon:hover::before { transform: scaleX(1); }
+    .btn-neon:hover {
+      box-shadow: 0 0 20px rgba(0,229,255,0.2);
+    }
+    .btn-neon span { position: relative; z-index: 1; }
+
+    .btn-neon-ghost {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .btn-neon-ghost:hover {
+      color: rgba(255,255,255,0.7);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    /* Bottom strip */
+    .hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6vw;
+      opacity: 0;
+      animation: itemIn 0.7s ease 2.3s forwards;
+    }
+    .hero-bottom-left {
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .bottom-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--cyan);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
+    }
+    .bottom-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-track {
+      width: 1px; height: 45px;
+      background: rgba(0,229,255,0.15);
+      position: relative; overflow: hidden;
+    }
+    .scroll-track::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 40%;
+      background: var(--cyan);
+      animation: scrollSlide 2s ease-in-out infinite;
+    }
+    @keyframes scrollSlide {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(300%); }
+    }
+    .scroll-label {
+      font-size: 0.52rem;
+      letter-spacing: 0.5em;
+      color: rgba(255,255,255,0.15);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    @keyframes itemIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Demo badge */
+    .badge {
+      position: fixed; top: 1.2rem; right: 1.2rem;
+      background: var(--cyan); color: #040404;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      z-index: 8999; font-family: 'Cormorant Garamond', serif;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="badge">案C — NEON NOIR</div>
+
+<!-- ── OPENING ── -->
+<div id="opening">
+  <div class="op-scan"></div>
+
+  <!-- Concentric frames -->
+  <div class="op-frame">
+    <div class="op-corner-detail tl"></div>
+    <div class="op-corner-detail tr"></div>
+    <div class="op-corner-detail bl"></div>
+    <div class="op-corner-detail br"></div>
+  </div>
+  <div class="op-frame"></div>
+  <div class="op-frame"></div>
+
+  <!-- Logo -->
+  <div class="op-inner">
+    <div class="op-logo">
+      <img src="assets/logo_m.svg" alt="B-GRAM">
+    </div>
+    <p class="op-label">Osaka &nbsp;·&nbsp; Real Estate &nbsp;·&nbsp; Japan</p>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/bg-hero.mov" type="video/mp4">
+    <source src="assets/bg-hero.mov" type="video/quicktime">
+  </video>
+
+  <div class="hero-overlay"></div>
+  <div class="hero-scan"></div>
+
+  <div class="hero-frame"></div>
+  <div class="hero-hline top"></div>
+  <div class="hero-hline bot"></div>
+
+  <div class="hero-content">
+    <p class="hero-overline">B-GRAM Co., Ltd. &nbsp;·&nbsp; Osaka, Japan</p>
+    <div class="hero-logo">
+      <img src="assets/logo_m.svg" alt="B-GRAM">
+    </div>
+    <h1 class="hero-h1">
+      唯一無二の不動産を、<br>
+      <em class="accent">最大化</em>へ導く。
+    </h1>
+    <p class="hero-sub">二極化の時代を、ともに切り拓く</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-neon"><span>事業内容を見る</span></a>
+      <a href="#" class="btn-neon-ghost">COMPANY</a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-bottom-left">
+      <div class="bottom-dot"></div>
+      <span class="bottom-text">LIVE &nbsp; OSAKA · JAPAN</span>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-track"></div>
+      <span class="scroll-label">SCROLL</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', () => {
+    const opening = document.getElementById('opening');
+    const frames = document.querySelectorAll('.op-frame');
+
+    // Add pulse after frames appear
+    setTimeout(() => {
+      frames.forEach(f => f.classList.add('pulse'));
+    }, 2000);
+
+    // Exit opening
+    setTimeout(() => {
+      frames.forEach(f => f.classList.remove('pulse'));
+      opening.classList.add('exit');
+      setTimeout(() => { opening.style.display = 'none'; }, 900);
+    }, 3200);
+  });
+</script>
+</body>
+</html>
