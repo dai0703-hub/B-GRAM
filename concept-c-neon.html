@@ -370,7 +370,7 @@
     }
 
     /* ── PHILOSOPHY ───────────────────────────── */
-    #philosophy { min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+    #philosophy { min-height: 100vh; overflow: hidden; }
     .philosophy-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
       align-items: center; max-width: 1100px; margin: 0 auto;
@@ -703,6 +703,131 @@
       letter-spacing: 0.2em; color: rgba(255,255,255,0.15);
     }
 
+    /* ── VISION LAYOUT ────────────────────────── */
+    .vision-layout {
+      display: grid; grid-template-columns: 1fr 400px;
+      gap: 5rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .vision-text { position: relative; }
+    .vision-image { position: relative; overflow: hidden; border: 1px solid var(--line-dim); }
+    .vision-image img {
+      width: 100%; height: 100%; min-height: 520px;
+      object-fit: cover; display: block;
+      filter: brightness(0.72) saturate(0.85);
+      transition: transform 0.8s var(--ease);
+    }
+    .vision-image:hover img { transform: scale(1.04); }
+    .vision-img-corner {
+      position: absolute; bottom: 0; left: 0;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--blue); border-left: 2px solid var(--blue);
+      pointer-events: none;
+    }
+
+    /* ── PHILOSOPHY NEW ────────────────────────── */
+    .phil-cards {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--line);
+      max-width: 1100px; margin: 0 auto 5rem; overflow: hidden;
+    }
+    .phil-card { flex: 1; padding: 3rem 3.5rem; }
+    .phil-card-sep { width: 1px; background: var(--line); flex-shrink: 0; }
+    .phil-card-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.58rem; letter-spacing: 0.5em;
+      color: var(--blue); text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .phil-card-row { display: flex; align-items: flex-start; gap: 1.5rem; }
+    .phil-big-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; font-weight: 300; color: var(--blue);
+      line-height: 0.85; flex-shrink: 0;
+    }
+    .phil-gram { font-size: 2.4rem; color: rgba(126,166,177,0.5); padding-top: 0.6rem; }
+    .phil-card-words { display: flex; flex-direction: column; gap: 0.8rem; }
+    .phil-card-words p {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.9rem; line-height: 1.9; letter-spacing: 0.08em; color: var(--text-sub);
+    }
+    .phil-card-words em { font-style: normal; color: #fff; }
+
+    .phil-image-strip {
+      position: relative; overflow: hidden;
+      max-width: 1100px; margin: 0 auto 5rem;
+      border: 1px solid var(--line-dim); height: 380px;
+    }
+    .phil-image-strip img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.68) saturate(0.82);
+      transition: transform 0.8s var(--ease);
+    }
+    .phil-image-strip:hover img { transform: scale(1.03); }
+    .phil-img-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(13,16,22,0.65) 0%, transparent 40%, transparent 60%, rgba(13,16,22,0.5) 100%),
+        linear-gradient(to bottom, transparent 50%, rgba(13,16,22,0.75) 100%);
+    }
+    .phil-img-caption {
+      position: absolute; bottom: 1.8rem; right: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.58rem; letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.38); text-transform: uppercase;
+    }
+    .phil-body-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: start;
+    }
+
+    /* ── BUSINESS SHOWCASE ─────────────────────── */
+    .biz-showcase {
+      position: relative; overflow: hidden;
+      max-width: 1100px; margin: 0 auto 4rem;
+      height: 340px; border: 1px solid var(--line-dim);
+    }
+    .biz-showcase img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.72) saturate(0.85);
+      transition: transform 0.8s var(--ease);
+    }
+    .biz-showcase:hover img { transform: scale(1.03); }
+    .biz-showcase-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(7,8,11,0.85) 0%, rgba(7,8,11,0.45) 55%, rgba(7,8,11,0.55) 100%);
+    }
+    .biz-showcase-text {
+      position: absolute; left: 3.5rem; top: 50%; transform: translateY(-50%);
+    }
+    .biz-showcase-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem; letter-spacing: 0.6em;
+      color: var(--blue); text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .biz-showcase-tagline {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      line-height: 1.7; letter-spacing: 0.05em; color: #fff;
+    }
+
+    /* ── VALUES IMAGE ──────────────────────────── */
+    .values-img-wrap {
+      position: relative; overflow: hidden;
+      max-width: 860px; margin: 0 0 4rem; height: 260px;
+      border: 1px solid var(--line-dim);
+    }
+    .values-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.65) saturate(0.8);
+      transition: transform 0.8s var(--ease);
+    }
+    .values-img-wrap:hover img { transform: scale(1.03); }
+    .values-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,16,22,0.75) 100%);
+    }
+
     /* ── UTILITIES ────────────────────────────── */
     @keyframes itemIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -727,42 +852,27 @@
       /* Sections */
       .section { padding: 5rem 6vw; }
 
-      /* Philosophy — full redesign for mobile */
-      .philosophy-grid { grid-template-columns: 1fr; gap: 0; }
-      .philosophy-bg-text { display: none; }
+      /* Vision */
+      .vision-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .vision-image { display: none; }
 
-      /* Left block: meaning cards */
-      .philosophy-left {
-        border: 1px solid var(--line);
-        border-bottom: none;
-        padding: 2rem 2rem 0.5rem;
-        background: rgba(126,166,177,0.03);
-        overflow: visible;
-      }
-      .philosophy-tagline { margin-bottom: 1.2rem; font-size: 0.6rem; }
-      .philosophy-meaning { gap: 0; margin-bottom: 0; }
-      .meaning-item {
-        align-items: flex-start; gap: 1.2rem;
-        padding: 1.5rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-      .meaning-item:last-child { border-bottom: none; }
-      .meaning-letter { font-size: 2.2rem; min-width: 2.5rem; flex-shrink: 0; }
-      .meaning-text { font-size: 0.88rem; line-height: 2.0; }
-
-      /* Right block: text content */
-      .philosophy-right {
-        border: 1px solid var(--line);
-        border-top: 2px solid var(--blue);
-        padding: 2.5rem 2rem;
-      }
-      .philosophy-h2 { font-size: clamp(1.2rem, 4vw, 1.6rem); margin-bottom: 1.5rem; }
-      .philosophy-body { font-size: 0.88rem; line-height: 2.2; margin-bottom: 1.5rem; }
-      .philosophy-block { padding: 1.2rem 1.5rem; }
+      /* Philosophy new */
+      .phil-cards { flex-direction: column; margin-bottom: 3rem; }
+      .phil-card-sep { width: 100%; height: 1px; flex-shrink: 0; }
+      .phil-card { padding: 2.5rem 2rem; }
+      .phil-big-letter { font-size: 3.8rem; }
+      .phil-gram { font-size: 2.2rem; }
+      .phil-image-strip { height: 260px; margin-bottom: 3rem; }
+      .phil-body-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 
       /* Business */
+      .biz-showcase { height: 260px; margin-bottom: 3rem; }
+      .biz-showcase-text { left: 2rem; }
       .business-cards { grid-template-columns: 1fr; gap: 0; }
       .biz-card { padding: 2.5rem 2rem; }
+
+      /* Values */
+      .values-img-wrap { height: 220px; margin-bottom: 3rem; }
 
       /* Company */
       .company-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -791,19 +901,25 @@
       .hero-sub-philosophy { display: none; }
       .hero-h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
 
-      /* Philosophy small screen */
-      .philosophy-left { padding: 1.5rem 1.5rem 0.5rem; }
-      .philosophy-right { padding: 2rem 1.5rem; }
-      .meaning-letter { font-size: 1.9rem; }
+      /* Philosophy small */
+      .phil-card { padding: 2rem 1.5rem; }
+      .phil-big-letter { font-size: 3.2rem; }
+      .phil-gram { font-size: 1.9rem; }
+      .phil-image-strip { height: 200px; margin-bottom: 2rem; }
+      .phil-img-caption { display: none; }
 
       /* Vision */
       .vision-vline { display: none; }
-      .vision-inner { padding-left: 0; }
+      .vision-text { padding-left: 0; }
 
       /* Business */
+      .biz-showcase { height: 180px; }
+      .biz-showcase-text { left: 1.5rem; }
+      .biz-showcase-tagline { font-size: 1.1rem; }
       .biz-card { padding: 2rem 1.5rem; }
       .business-header { margin-bottom: 3rem; }
-      .values-header { margin-bottom: 3rem; }
+      .values-header { margin-bottom: 2rem; }
+      .values-img-wrap { height: 180px; margin-bottom: 2.5rem; }
 
       /* Company */
       .company-photo { height: 200px; }
@@ -904,28 +1020,34 @@
 <!-- ══ VISION ════════════════════════════════ -->
 <section id="vision" class="section section-bg-dark">
   <p class="sec-label reveal"><span class="sec-num">01</span> Vision</p>
-  <div class="vision-inner">
-    <div class="vision-vline"></div>
-    <h2 class="vision-h2 reveal">
-      資産に、<span class="accent">魂</span>を<br>吹き込む会社へ。
-    </h2>
-    <p class="vision-body reveal reveal-delay-1">
-      土地は黙っています。建物も、沈黙しています。<br>
-      しかし、その沈黙の中に、誰かの人生が詰まっている。<br>
-      誰かの夢が、記憶が、これからが、静かに宿っています。
-    </p>
-    <p class="vision-body reveal reveal-delay-2">
-      私たちは、不動産を「資産」として扱う前に、「物語」として受け取ります。<br>
-      あなたの土地に、あなたの建物に、もっとも相応しい未来を、<br>
-      一グラムの誠実さで積み上げていく。それが、B-GRAMの仕事です。
-    </p>
-    <p class="vision-body reveal reveal-delay-3">
-      二極化が加速するこの時代。選ばれる不動産と、そうでない不動産の差は、<br>
-      もはや立地や価格だけでは語れません。<br>
-      唯一無二の価値を、最大化へ導くパートナーとして——。
-    </p>
-    <div class="vision-quote reveal reveal-delay-4">
-      <p>「資産の価値とは、数字の中にではなく、<br>人と人との信頼の間に宿るものだ。」</p>
+  <div class="vision-layout">
+    <div class="vision-text">
+      <div class="vision-vline"></div>
+      <h2 class="vision-h2 reveal">
+        資産に、<span class="accent">魂</span>を<br>吹き込む会社へ。
+      </h2>
+      <p class="vision-body reveal reveal-delay-1">
+        土地は黙っています。建物も、沈黙しています。<br>
+        しかし、その沈黙の中に、誰かの人生が詰まっている。<br>
+        誰かの夢が、記憶が、これからが、静かに宿っています。
+      </p>
+      <p class="vision-body reveal reveal-delay-2">
+        私たちは、不動産を「資産」として扱う前に、「物語」として受け取ります。<br>
+        あなたの土地に、あなたの建物に、もっとも相応しい未来を、<br>
+        一グラムの誠実さで積み上げていく。それが、B-GRAMの仕事です。
+      </p>
+      <p class="vision-body reveal reveal-delay-3">
+        二極化が加速するこの時代。選ばれる不動産と、そうでない不動産の差は、<br>
+        もはや立地や価格だけでは語れません。<br>
+        唯一無二の価値を、最大化へ導くパートナーとして——。
+      </p>
+      <div class="vision-quote reveal reveal-delay-4">
+        <p>「資産の価値とは、数字の中にではなく、<br>人と人との信頼の間に宿るものだ。」</p>
+      </div>
+    </div>
+    <div class="vision-image reveal reveal-delay-2">
+      <img src="assets/img1.png" alt="B-GRAM Real Estate">
+      <div class="vision-img-corner"></div>
     </div>
   </div>
 </section>
@@ -933,29 +1055,43 @@
 <!-- ══ PHILOSOPHY ════════════════════════════ -->
 <section id="philosophy" class="section section-bg-mid">
   <p class="sec-label reveal"><span class="sec-num">02</span> Philosophy</p>
-  <div class="philosophy-grid">
-    <div class="philosophy-left reveal-left">
-      <div class="philosophy-bg-text">B</div>
-      <p class="philosophy-tagline">The Name, The Will</p>
-      <div class="philosophy-meaning">
-        <div class="meaning-item">
-          <span class="meaning-letter">B</span>
-          <div class="meaning-text">
-            <em>Beyond</em> — 限界を超えていく<br>
-            <em>Build</em> — 価値を築き上げる<br>
-            <em>Bridge</em> — 人と資産をつなぐ
-          </div>
-        </div>
-        <div class="meaning-item">
-          <span class="meaning-letter" style="font-size:1.6rem;color:rgba(126,166,177,0.5)">GRAM</span>
-          <div class="meaning-text">
-            1グラムという単位が象徴する<br>
-            <em>重さ・密度・精度</em>への哲学
-          </div>
+
+  <!-- B / GRAM 意味カード -->
+  <div class="phil-cards reveal">
+    <div class="phil-card">
+      <p class="phil-card-tag">The Name, The Will</p>
+      <div class="phil-card-row">
+        <span class="phil-big-letter">B</span>
+        <div class="phil-card-words">
+          <p><em>Beyond</em> — 限界を超えていく</p>
+          <p><em>Build</em> — 価値を築き上げる</p>
+          <p><em>Bridge</em> — 人と資産をつなぐ</p>
         </div>
       </div>
     </div>
-    <div class="philosophy-right reveal reveal-delay-2">
+    <div class="phil-card-sep"></div>
+    <div class="phil-card">
+      <p class="phil-card-tag">The Unit, The Weight</p>
+      <div class="phil-card-row">
+        <span class="phil-big-letter phil-gram">GRAM</span>
+        <div class="phil-card-words">
+          <p>1グラムという単位が象徴する</p>
+          <p><em>重さ・密度・精度</em>への哲学</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- イメージストリップ -->
+  <div class="phil-image-strip reveal">
+    <img src="assets/img2.png" alt="B-GRAM Premium Property">
+    <div class="phil-img-overlay"></div>
+    <p class="phil-img-caption">Premium Real Estate — Curated for Those Who Seek More</p>
+  </div>
+
+  <!-- 本文 -->
+  <div class="phil-body-grid">
+    <div class="reveal">
       <h2 class="philosophy-h2">
         B-GRAMという名前には、<br>ひとつの意志が込められています。
       </h2>
@@ -969,9 +1105,10 @@
         1グラムの誠実さを、一つひとつの取引に積み上げていく。<br>
         軽さではなく、密度と精度で勝負する。それが私たちの流儀です。
       </p>
+    </div>
+    <div class="reveal reveal-delay-2">
       <div class="philosophy-block">
-        <p>「1グラムの誠実さを積み重ね、<br>
-        唯一無二の価値を、最大化へ。」</p>
+        <p>「1グラムの誠実さを積み重ね、<br>唯一無二の価値を、最大化へ。」</p>
       </div>
     </div>
   </div>
@@ -983,6 +1120,17 @@
   <div class="business-header reveal reveal-delay-1">
     <h2>三つの事業が、<br>一つの哲学を語ります。</h2>
   </div>
+
+  <!-- ショーケース画像 -->
+  <div class="biz-showcase reveal">
+    <img src="assets/img3.png" alt="Premium Interior">
+    <div class="biz-showcase-overlay"></div>
+    <div class="biz-showcase-text">
+      <p class="biz-showcase-label">Luxury Real Estate</p>
+      <p class="biz-showcase-tagline">唯一無二の物件に、<br>唯一無二の価値を。</p>
+    </div>
+  </div>
+
   <div class="business-cards">
     <div class="biz-card reveal">
       <span class="biz-num">01</span>
@@ -1022,6 +1170,10 @@
   <p class="sec-label reveal"><span class="sec-num">04</span> Values</p>
   <div class="values-header reveal reveal-delay-1">
     <h2>私たちが守り続ける、<br>五つの矜持。</h2>
+  </div>
+  <div class="values-img-wrap reveal">
+    <img src="assets/img4.png" alt="Premium Property">
+    <div class="values-img-overlay"></div>
   </div>
   <div class="values-list">
     <div class="value-item reveal">
