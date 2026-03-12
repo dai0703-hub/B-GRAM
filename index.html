@@ -3,369 +3,1620 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ビーグラム株式会社 | B-GRAM — 唯一無二の不動産を最大化へ</title>
-  <meta name="description" content="唯一無二の不動産を最大化へ導くパートナー。ビーグラム株式会社は大阪を拠点とした不動産会社です。">
-  <meta name="keywords" content="ビーグラム,B-GRAM,不動産,大阪,売買,賃貸,コンサルティング">
-  <meta property="og:title" content="ビーグラム株式会社 | B-GRAM">
-  <meta property="og:description" content="唯一無二の不動産を最大化へ導くパートナー。">
-  <meta property="og:type" content="website">
-
-  <link rel="icon" href="assets/logo_m.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <title>ビーグラム株式会社 | B-GRAM — Beyond Every Gram of Value.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* Inline nav active style */
-    .nav-menu a.active { color: var(--gold) !important; }
-    .nav-menu a.active::after { width: 100% !important; }
+    /* ── RESET & ROOT ─────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:     #7ea6b1;
+      --grey:     #4e4a46;
+      --bg-dark:  #07080b;
+      --bg-mid:   #0d1016;
+      --text:     #ffffff;
+      --text-sub: rgba(255,255,255,0.65);
+      --text-dim: rgba(255,255,255,0.38);
+      --line:     rgba(126,166,177,0.3);
+      --line-dim: rgba(126,166,177,0.14);
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    body.opening-active { overflow: hidden; }
+
+    /* ── CUSTOM CURSOR ────────────────────────── */
+    .cursor {
+      position: fixed; pointer-events: none; z-index: 99999;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue);
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      position: fixed; pointer-events: none; z-index: 99998;
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(126,166,177,0.5);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    .cursor.hover { width: 12px; height: 12px; background: #fff; }
+    .cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(126,166,177,0.25); }
+    @media (hover: none) { .cursor, .cursor-ring { display: none; } body { cursor: auto; } }
+
+    /* ── NAVIGATION ───────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 72px; z-index: 8000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    #nav.scrolled {
+      background: rgba(14,14,14,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(126,166,177,0.2);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.6);
+    }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.8rem;
+    }
+    .nav-links a {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      transition: color 0.25s;
+      font-family: 'Cormorant Garamond', serif;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--blue);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after, .nav-links a.active { color: var(--blue); }
+    .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 0.62rem !important; letter-spacing: 0.2em !important;
+      color: var(--blue) !important;
+      border: 1px solid var(--line) !important;
+      padding: 0.5rem 1.4rem;
+      transition: all 0.25s !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: rgba(126,166,177,0.1) !important;
+      border-color: var(--blue) !important;
+    }
+
+    /* ── HAMBURGER ────────────────────────────── */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+      cursor: pointer; z-index: 8100;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(126,166,177,0.5);
+      border-radius: 4px;
+      background: rgba(7,8,11,0.92);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .hamburger:hover { border-color: var(--blue); }
+    .hamburger span {
+      display: block; width: 20px; height: 2px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease), opacity 0.3s, width 0.3s, background 0.3s;
+    }
+    .hamburger.active { border-color: var(--blue); background: rgba(7,8,11,0.95); }
+    .hamburger.active span { background: var(--blue); }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    body.menu-open { overflow: hidden; }
+
+    /* ── OPENING ──────────────────────────────── */
+    #opening {
+      position: fixed; inset: 0; z-index: 9000;
+      background: var(--bg-dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .op-scan {
+      position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    }
+    .op-frame {
+      position: absolute; border: 1px solid transparent;
+      transform: scale(0); opacity: 0;
+    }
+    .op-frame:nth-child(2) { width: 44vmin; height: 28vmin; border-color: rgba(126,166,177,0.45); animation: frameExpand 0.7s var(--ease) 0.2s forwards; }
+    .op-frame:nth-child(3) { width: 56vmin; height: 36vmin; border-color: rgba(126,166,177,0.2);  animation: frameExpand 0.7s var(--ease) 0.4s forwards; }
+    .op-frame:nth-child(4) { width: 70vmin; height: 46vmin; border-color: rgba(126,166,177,0.08); animation: frameExpand 0.7s var(--ease) 0.6s forwards; }
+    @keyframes frameExpand { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .op-corner-detail { position: absolute; width: 8px; height: 8px; }
+    .op-corner-detail::before, .op-corner-detail::after { content: ''; position: absolute; background: var(--blue); }
+    .op-corner-detail::before { width: 8px; height: 1px; top: 0; left: 0; }
+    .op-corner-detail::after  { width: 1px; height: 8px; top: 0; left: 0; }
+    .op-corner-detail.tr { top: -4px; right: -4px; transform: rotate(90deg); }
+    .op-corner-detail.bl { bottom: -4px; left: -4px; transform: rotate(270deg); }
+    .op-corner-detail.br { bottom: -4px; right: -4px; transform: rotate(180deg); }
+    .op-frame:nth-child(2) .op-corner-detail { opacity: 0; animation: fadeIn 0.4s ease 0.8s forwards; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .op-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+    }
+    .op-logo { opacity: 0; animation: logoGlow 1s var(--ease) 0.9s forwards; }
+    .op-logo img { height: 50px; width: auto; }
+    @keyframes logoGlow {
+      0%   { opacity: 0; filter: drop-shadow(0 0 0px rgba(126,166,177,0)); }
+      60%  { opacity: 1; filter: drop-shadow(0 0 24px rgba(126,166,177,0.5)); }
+      100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(126,166,177,0.2)); }
+    }
+    .op-label {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.7em; color: var(--blue); text-transform: uppercase;
+      opacity: 0; animation: fadeIn 0.6s ease 1.4s forwards;
+    }
+    .op-frame.pulse { animation: framePulse 1s ease-in-out infinite; }
+    @keyframes framePulse { 0%,100% { opacity: 0.8; } 50% { opacity: 0.4; } }
+    #opening.exit { animation: openingExit 0.8s cubic-bezier(0.55,0,1,0.45) forwards; }
+    @keyframes openingExit { 0% { opacity: 1; transform: scale(1); } 60% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(0.94); } }
+
+    /* ── HERO ─────────────────────────────────── */
+    #hero {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(126,166,177,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(78,74,70,0.12) 0%, transparent 60%),
+        #07080b;
+    }
+    .hero-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0;
+      animation: videoIn 2s ease 0.3s forwards;
+      will-change: transform;
+    }
+    @keyframes videoIn { from { opacity: 0; } to { opacity: 0.92; } }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 35%, rgba(4,4,4,0.18) 0%, rgba(4,4,4,0.32) 60%),
+        linear-gradient(to bottom, rgba(4,4,4,0.25) 0%, rgba(4,4,4,0.6) 100%);
+    }
+    .hero-scan {
+      position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.025) 4px, rgba(0,0,0,0.025) 8px);
+    }
+    .hero-frame {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 60vmin; height: 75vh;
+      border: 1px solid rgba(126,166,177,0.22);
+      pointer-events: none; opacity: 0;
+      animation: heroFrameIn 1s ease 0.8s forwards;
+    }
+    @keyframes heroFrameIn {
+      from { opacity: 0; transform: translate(-50%,-50%) scale(1.08); }
+      to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    }
+    .hero-hline {
+      position: absolute; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent 5%, var(--blue) 20%, var(--blue) 80%, transparent 95%);
+      opacity: 0;
+    }
+    .hero-hline.top { top: 18%; animation: hlineIn 0.8s ease 1.0s forwards; }
+    .hero-hline.bot { bottom: 18%; animation: hlineIn 0.8s ease 1.2s forwards; }
+    @keyframes hlineIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 0.38; transform: scaleX(1); } }
+
+    .hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 0 5vw;
+    }
+    .hero-overline {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 0.7em; color: var(--blue); text-transform: uppercase;
+      margin-bottom: 2.5rem; opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.0s forwards;
+    }
+    .hero-logo {
+      margin-bottom: 2.5rem; opacity: 0;
+      animation: heroLogoIn 0.8s var(--ease) 1.2s forwards;
+    }
+    .hero-logo img { height: 52px; width: auto; }
+    @keyframes heroLogoIn {
+      from { opacity: 0; transform: translateY(10px); filter: drop-shadow(0 0 0px rgba(126,166,177,0)); }
+      to   { opacity: 1; transform: translateY(0);    filter: drop-shadow(0 0 18px rgba(126,166,177,0.2)); }
+    }
+    .hero-h1 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.8rem, 3.5vw, 3.4rem);
+      color: #fff; line-height: 2.0; letter-spacing: 0.05em;
+      margin-bottom: 1.2rem; opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.5s forwards;
+    }
+    .hero-h1 .accent { color: var(--blue); }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.88rem;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.35);
+      margin-bottom: 1.2rem; opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.7s forwards;
+    }
+    .hero-sub-philosophy {
+      font-family: 'Noto Serif JP', serif; font-size: 0.72rem;
+      font-weight: 200; letter-spacing: 0.2em;
+      color: rgba(126,166,177,0.6); margin-bottom: 3rem; opacity: 0;
+      animation: itemIn 0.7s var(--ease) 1.9s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 1.5rem; align-items: center; opacity: 0;
+      animation: itemIn 0.7s var(--ease) 2.1s forwards;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .btn-neon {
+      position: relative; display: inline-flex; align-items: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
+      letter-spacing: 0.3em; color: var(--blue);
+      text-decoration: none; padding: 0.85rem 2.2rem;
+      border: 1px solid var(--blue); overflow: hidden; transition: all 0.3s;
+    }
+    .btn-neon::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(126,166,177,0.12);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-neon:hover::before { transform: scaleX(1); }
+    .btn-neon:hover { box-shadow: 0 0 20px rgba(126,166,177,0.15); }
+    .btn-neon span { position: relative; z-index: 1; }
+    .btn-ghost {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.3);
+      text-decoration: none; padding: 0.85rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.12); transition: all 0.3s;
+    }
+    .btn-ghost:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.3); }
+
+    .hero-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6vw; opacity: 0;
+      animation: itemIn 0.7s ease 2.3s forwards;
+    }
+    .bottom-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--blue); animation: dotPulse 2s ease-in-out infinite; }
+    @keyframes dotPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(126,166,177,0.4); } 50% { box-shadow: 0 0 0 6px rgba(126,166,177,0); } }
+    .bottom-text { font-family: 'Cormorant Garamond', serif; font-size: 0.6rem; letter-spacing: 0.4em; color: rgba(255,255,255,0.18); margin-left: 0.7rem; }
+    .hero-bottom-left { display: flex; align-items: center; }
+    .scroll-track { width: 1px; height: 45px; background: rgba(126,166,177,0.15); position: relative; overflow: hidden; }
+    .scroll-track::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 40%; background: var(--blue); animation: scrollSlide 2s ease-in-out infinite; }
+    @keyframes scrollSlide { 0% { transform: translateY(-100%); } 100% { transform: translateY(300%); } }
+    .scroll-label { font-size: 0.52rem; letter-spacing: 0.5em; color: rgba(255,255,255,0.15); font-family: 'Cormorant Garamond', serif; margin-top: 0.5rem; }
+
+    /* ── SECTION COMMONS ──────────────────────── */
+    .section {
+      padding: 8rem 8vw;
+      position: relative; overflow: hidden;
+    }
+    .section-bg-mid { background: var(--bg-mid); }
+    .section-bg-dark { background: var(--bg-dark); }
+
+    .sec-label {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.6rem;
+      letter-spacing: 0.6em; color: var(--blue); text-transform: uppercase;
+      display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
+    }
+    .sec-label::before { content: ''; width: 32px; height: 1px; background: var(--blue); flex-shrink: 0; }
+    .sec-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.55rem;
+      letter-spacing: 0.4em; color: rgba(126,166,177,0.4);
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+    .reveal-delay-4 { transition-delay: 0.5s; }
+    .reveal-delay-5 { transition-delay: 0.65s; }
+
+    /* ── VISION ───────────────────────────────── */
+    #vision {
+      min-height: 100vh;
+      display: flex; align-items: center;
+    }
+    .vision-inner {
+      max-width: 860px; margin: 0 auto; position: relative;
+    }
+    .vision-vline {
+      position: absolute; left: -3vw; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--blue) 20%, var(--blue) 80%, transparent);
+      opacity: 0.25;
+    }
+    .vision-h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.7; letter-spacing: 0.05em;
+      color: #fff; margin-bottom: 3rem;
+    }
+    .vision-h2 .accent { color: var(--blue); }
+    .vision-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      line-height: 2.2; letter-spacing: 0.06em;
+      color: var(--text-sub); margin-bottom: 2rem;
+    }
+    .vision-quote {
+      margin-top: 3.5rem; padding: 1.8rem 2rem;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .vision-quote::before {
+      content: '';
+      position: absolute; top: -1px; left: 0; width: 40px; height: 1px;
+      background: var(--blue);
+    }
+    .vision-quote p {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+      letter-spacing: 0.12em; color: rgba(255,255,255,0.55); line-height: 1.9;
+      font-style: italic;
+    }
+
+    /* ── PHILOSOPHY ───────────────────────────── */
+    #philosophy { min-height: 100vh; overflow: hidden; }
+    .philosophy-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      align-items: center; max-width: 1100px; margin: 0 auto;
+    }
+    .philosophy-left { position: relative; }
+    .philosophy-bg-text {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(7rem, 18vw, 18rem); line-height: 0.85;
+      color: rgba(126,166,177,0.05);
+      letter-spacing: -0.04em; user-select: none; pointer-events: none;
+      position: absolute; top: -0.1em; left: -0.05em;
+    }
+    .philosophy-tagline {
+      position: relative; z-index: 1;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.65rem;
+      letter-spacing: 0.5em; color: var(--blue); text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .philosophy-meaning {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .meaning-item { display: flex; align-items: baseline; gap: 1.2rem; }
+    .meaning-letter {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.8rem;
+      font-weight: 300; color: var(--blue); line-height: 1; min-width: 2rem;
+    }
+    .meaning-text {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.9rem; letter-spacing: 0.1em; color: var(--text-sub);
+      line-height: 1.8;
+    }
+    .meaning-text em { font-style: normal; color: rgba(255,255,255,0.75); }
+    .philosophy-h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      line-height: 1.8; letter-spacing: 0.05em; color: #fff;
+      margin-bottom: 2rem;
+    }
+    .philosophy-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.9rem; line-height: 2.3; letter-spacing: 0.06em;
+      color: var(--text-sub); margin-bottom: 2rem;
+    }
+    .philosophy-block {
+      padding: 1.6rem 1.8rem; border-left: 2px solid var(--blue);
+      background: rgba(126,166,177,0.04); margin-top: 2rem;
+    }
+    .philosophy-block p {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.88rem; line-height: 2.1; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── BUSINESS ─────────────────────────────── */
+    #business { min-height: 80vh; }
+    .business-header { text-align: center; max-width: 600px; margin: 0 auto 5rem; }
+    .business-header h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      line-height: 1.8; letter-spacing: 0.05em; color: #fff;
+    }
+    .business-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .biz-card {
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--line-dim);
+      position: relative; overflow: hidden;
+      transition: border-color 0.35s;
+      cursor: default;
+      transform-style: preserve-3d;
+      transform: perspective(800px);
+    }
+    .biz-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: var(--blue);
+      transform: scaleY(0); transform-origin: bottom;
+      transition: transform 0.4s var(--ease);
+    }
+    .biz-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(126,166,177,0.06), transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .biz-card:hover::before { transform: scaleY(1); }
+    .biz-card:hover { border-color: var(--line); }
+    .biz-card:hover::after { opacity: 1; }
+    .biz-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
+      font-weight: 300; color: rgba(126,166,177,0.2);
+      line-height: 1; margin-bottom: 1.5rem; display: block;
+    }
+    .biz-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 300;
+      font-size: 1rem; letter-spacing: 0.08em; color: #fff;
+      margin-bottom: 1.5rem; line-height: 1.5;
+    }
+    .biz-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.8rem; line-height: 2.1; letter-spacing: 0.06em;
+      color: var(--text-sub);
+    }
+    .biz-tag {
+      display: inline-block; margin-top: 2rem;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.6rem;
+      letter-spacing: 0.4em; color: var(--blue); text-transform: uppercase;
+      border-bottom: 1px solid rgba(126,166,177,0.3); padding-bottom: 0.2rem;
+    }
+
+    /* ── VALUES ───────────────────────────────── */
+    #values { min-height: 80vh; }
+    .values-header { max-width: 640px; margin-bottom: 5rem; }
+    .values-header h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+      line-height: 1.8; letter-spacing: 0.05em; color: #fff;
+    }
+    .values-list { max-width: 860px; display: flex; flex-direction: column; }
+    .value-item {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 2.5rem; padding: 2.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: start;
+      transition: background 0.3s;
+    }
+    .value-item:hover { background: rgba(126,166,177,0.02); }
+    .value-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+    .value-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.4rem;
+      font-weight: 300; color: rgba(126,166,177,0.25); line-height: 1;
+      padding-top: 0.2rem;
+      transition: color 0.3s;
+    }
+    .value-item:hover .value-num { color: rgba(126,166,177,0.5); }
+    .value-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 300;
+      font-size: 1rem; letter-spacing: 0.08em; color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    .value-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.82rem; line-height: 2.1; letter-spacing: 0.06em;
+      color: var(--text-sub);
+    }
+
+    /* ── COMPANY ──────────────────────────────── */
+    #company { min-height: 70vh; }
+
+    /* Company photo */
+    .company-photo-wrap {
+      max-width: 1100px; margin: 0 auto 5rem;
+      position: relative; overflow: hidden;
+    }
+    .company-photo-inner {
+      position: relative; overflow: hidden;
+      border: 1px solid var(--line-dim);
+    }
+    .company-photo {
+      width: 100%; height: 420px;
+      object-fit: cover; display: block;
+      filter: brightness(0.9) saturate(0.85);
+      transition: transform 0.8s var(--ease), filter 0.6s;
+    }
+    .company-photo-inner:hover .company-photo {
+      transform: scale(1.03);
+      filter: brightness(1) saturate(1);
+    }
+    .company-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(4,4,4,0.7) 100%);
+    }
+    .company-photo-caption {
+      position: absolute; bottom: 1.8rem; left: 2rem;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 0.4em; color: rgba(255,255,255,0.45); text-transform: uppercase;
+    }
+    .company-photo-frame {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 60px; height: 60px;
+      border-top: 1px solid var(--blue);
+      border-right: 1px solid var(--blue);
+    }
+
+    /* Company info grid */
+    .company-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+      max-width: 1100px; margin: 0 auto 5rem; align-items: start;
+    }
+    .company-table { width: 100%; border-collapse: collapse; }
+    .company-table tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .company-table tr:hover td { color: rgba(255,255,255,0.75); }
+    .company-table th {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.6rem;
+      letter-spacing: 0.3em; color: var(--blue); text-transform: uppercase;
+      padding: 1.2rem 1.5rem 1.2rem 0; text-align: left;
+      width: 38%; font-weight: 400; white-space: nowrap;
+    }
+    .company-table td {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.85rem; letter-spacing: 0.06em; color: var(--text-sub);
+      padding: 1.2rem 0; line-height: 1.8;
+      transition: color 0.3s;
+    }
+    .company-table td small {
+      display: block; font-size: 0.72rem; color: var(--text-dim);
+      letter-spacing: 0.08em; margin-top: 0.2rem;
+    }
+    .company-right { position: relative; padding: 3rem; border: 1px solid var(--line); }
+    .company-right::before {
+      content: ''; position: absolute; top: -1px; right: -1px;
+      width: 40px; height: 40px;
+      border-top: 2px solid var(--blue);
+      border-right: 2px solid var(--blue);
+    }
+    .company-quote {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1rem, 1.8vw, 1.4rem);
+      line-height: 1.9; letter-spacing: 0.06em; color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+    }
+    .company-quote em { font-style: normal; color: var(--blue); }
+    .company-quote-attr {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.6rem;
+      letter-spacing: 0.4em; color: var(--text-dim); margin-bottom: 3rem;
+    }
+    .company-contact {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+    .company-contact-item {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.7rem;
+      letter-spacing: 0.2em; color: var(--text-dim);
+    }
+    .company-contact-item span { color: var(--text-sub); margin-left: 0.5rem; }
+
+    /* ── ACCESS MAP ───────────────────────────── */
+    .access-wrap {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .access-header {
+      display: flex; align-items: center; gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .access-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 0.6em; color: var(--blue); text-transform: uppercase;
+    }
+    .access-address {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.82rem; letter-spacing: 0.08em; color: var(--text-sub);
+      margin-bottom: 1.5rem;
+    }
+    .map-container {
+      position: relative; overflow: hidden;
+      border: 1px solid var(--line-dim);
+      filter: grayscale(1) brightness(0.7) contrast(1.1);
+      transition: filter 0.6s;
+    }
+    .map-container:hover { filter: grayscale(0.4) brightness(0.85) contrast(1.05); }
+    .map-container iframe {
+      display: block; width: 100%; height: 420px; border: none;
+    }
+    .map-overlay-corner {
+      position: absolute; pointer-events: none;
+    }
+    .map-overlay-corner.tl { top: 0; left: 0; width: 40px; height: 40px; border-top: 2px solid var(--blue); border-left: 2px solid var(--blue); }
+    .map-overlay-corner.br { bottom: 0; right: 0; width: 40px; height: 40px; border-bottom: 2px solid var(--blue); border-right: 2px solid var(--blue); }
+
+    /* ── MESSAGE ──────────────────────────────── */
+    #message {
+      padding: 8rem 8vw;
+      text-align: center;
+      background: var(--bg-mid);
+      position: relative;
+    }
+    .message-frame {
+      max-width: 720px; margin: 0 auto; padding: 4rem;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .message-frame::before, .message-frame::after {
+      content: ''; position: absolute;
+      width: 16px; height: 16px;
+    }
+    .message-frame::before { top: -1px; left: -1px; border-top: 1px solid var(--blue); border-left: 1px solid var(--blue); }
+    .message-frame::after  { bottom: -1px; right: -1px; border-bottom: 1px solid var(--blue); border-right: 1px solid var(--blue); }
+    .message-overline {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.6em; color: var(--blue); text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .message-h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      line-height: 2.0; letter-spacing: 0.05em; color: #fff;
+      margin-bottom: 2rem;
+    }
+    .message-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.88rem; line-height: 2.4; letter-spacing: 0.07em;
+      color: var(--text-sub); margin-bottom: 2.5rem;
+    }
+    .message-tagline {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.72rem;
+      letter-spacing: 0.5em; color: rgba(126,166,177,0.55);
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ───────────────────────────────── */
+    footer {
+      background: #020202; padding: 3rem 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo img { height: 22px; width: auto; opacity: 0.5; }
+    .footer-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .footer-links a {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.45);
+      text-decoration: none; transition: color 0.25s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.75); }
+    .footer-copy {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.2em; color: rgba(255,255,255,0.15);
+    }
+
+    /* ── VISION LAYOUT ────────────────────────── */
+    .vision-layout {
+      display: grid; grid-template-columns: 1fr 400px;
+      gap: 5rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .vision-text { position: relative; }
+    .vision-image { position: relative; overflow: hidden; border: 1px solid var(--line-dim); }
+    .vision-image img {
+      width: 100%; height: 100%; min-height: 520px;
+      object-fit: cover; display: block;
+      filter: brightness(0.92) saturate(0.98);
+      transition: transform 0.8s var(--ease);
+    }
+    .vision-image:hover img { transform: scale(1.04); }
+    .vision-img-corner {
+      position: absolute; bottom: 0; left: 0;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--blue); border-left: 2px solid var(--blue);
+      pointer-events: none;
+    }
+
+    /* ── PHILOSOPHY NEW ────────────────────────── */
+    .phil-cards {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--line);
+      max-width: 1100px; margin: 0 auto 5rem; overflow: hidden;
+    }
+    .phil-card { flex: 1; padding: 3rem 3.5rem; }
+    .phil-card-sep { width: 1px; background: var(--line); flex-shrink: 0; }
+    .phil-card-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.58rem; letter-spacing: 0.5em;
+      color: var(--blue); text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .phil-card-row { display: flex; align-items: flex-start; gap: 1.5rem; }
+    .phil-big-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem; font-weight: 300; color: var(--blue);
+      line-height: 0.85; flex-shrink: 0;
+    }
+    .phil-gram { font-size: 2.4rem; color: rgba(126,166,177,0.5); padding-top: 0.6rem; }
+    .phil-card-words { display: flex; flex-direction: column; gap: 0.8rem; }
+    .phil-card-words p {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.9rem; line-height: 1.9; letter-spacing: 0.08em; color: var(--text-sub);
+    }
+    .phil-card-words em { font-style: normal; color: #fff; }
+
+    .phil-image-strip {
+      position: relative; overflow: hidden;
+      max-width: 1100px; margin: 0 auto 5rem;
+      border: 1px solid var(--line-dim); height: 380px;
+    }
+    .phil-image-strip img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.82) saturate(0.78);
+      transition: transform 0.8s var(--ease);
+    }
+    .phil-image-strip:hover img { transform: scale(1.03); }
+    .phil-img-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(13,16,22,0.65) 0%, transparent 40%, transparent 60%, rgba(13,16,22,0.5) 100%),
+        linear-gradient(to bottom, transparent 50%, rgba(13,16,22,0.75) 100%);
+    }
+    .phil-img-caption {
+      position: absolute; bottom: 1.8rem; right: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.58rem; letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.38); text-transform: uppercase;
+    }
+    .phil-body-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: start;
+    }
+
+    /* ── BUSINESS SHOWCASE ─────────────────────── */
+    .biz-showcase {
+      position: relative; overflow: hidden;
+      max-width: 1100px; margin: 0 auto 4rem;
+      height: 340px; border: 1px solid var(--line-dim);
+    }
+    .biz-showcase img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.88) saturate(0.95);
+      transition: transform 0.8s var(--ease);
+    }
+    .biz-showcase:hover img { transform: scale(1.03); }
+    .biz-showcase-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(7,8,11,0.85) 0%, rgba(7,8,11,0.45) 55%, rgba(7,8,11,0.55) 100%);
+    }
+    .biz-showcase-text {
+      position: absolute; left: 3.5rem; top: 50%; transform: translateY(-50%);
+    }
+    .biz-showcase-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem; letter-spacing: 0.6em;
+      color: var(--blue); text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .biz-showcase-tagline {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      line-height: 1.7; letter-spacing: 0.05em; color: #fff;
+    }
+
+    /* ── VALUES IMAGE ──────────────────────────── */
+    .values-img-wrap {
+      position: relative; overflow: hidden;
+      max-width: 860px; margin: 0 0 4rem; height: 260px;
+      border: 1px solid var(--line-dim);
+    }
+    .values-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.88) saturate(0.95);
+      transition: transform 0.8s var(--ease);
+    }
+    .values-img-wrap:hover img { transform: scale(1.03); }
+    .values-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,16,22,0.75) 100%);
+    }
+
+    /* ── PHOTO BREAK (section間の写真帯) ─────────── */
+    .photo-break {
+      position: relative; overflow: hidden;
+      height: 480px; width: 100%;
+    }
+    .photo-break img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.82) saturate(0.92);
+      transition: transform 1.4s var(--ease);
+    }
+    .photo-break:hover img { transform: scale(1.04); }
+    .photo-break-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(7,8,11,0.55) 0%, transparent 20%, transparent 80%, rgba(7,8,11,0.55) 100%);
+    }
+
+    /* ── SECTION BG PHOTO ────────────────────── */
+    .section-photo-bg {
+      position: absolute; inset: 0; overflow: hidden;
+      pointer-events: none; z-index: 0;
+    }
+    .section-photo-bg img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.22) saturate(0.6);
+    }
+    .section-photo-bg-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(7,8,11,0.1) 0%, rgba(7,8,11,0.65) 100%);
+    }
+    /* sections using photo bg need position:relative and children z-index:1 */
+    #business { position: relative; overflow: hidden; }
+    #business > *:not(.section-photo-bg) { position: relative; z-index: 1; }
+    #message  { position: relative; overflow: hidden; }
+    #message  > *:not(.section-photo-bg) { position: relative; z-index: 1; }
+
+    /* ── UTILITIES ────────────────────────────── */
+    @keyframes itemIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── MOBILE RESPONSIVE ────────────────────── */
+    @media (max-width: 960px) {
+      /* Nav mobile */
+      .nav-links {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        flex-direction: column; justify-content: center; align-items: center;
+        gap: 2.8rem;
+        background: #07080b;
+        padding-top: 72px;
+        transform: translateX(100%);
+        transition: transform 0.4s var(--ease);
+        z-index: 7990;
+        overflow-y: auto;
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links a {
+        font-size: 1rem; letter-spacing: 0.3em;
+        color: rgba(255,255,255,0.75);
+      }
+      .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+      .nav-cta {
+        border: 1px solid var(--line) !important;
+        padding: 0.9rem 2.4rem !important;
+        font-size: 0.78rem !important;
+      }
+      .hamburger { display: flex; }
+      /* ナビバーは常にメニューの上に表示 */
+      #nav { z-index: 8000; }
+      /* スクロール前もナビバーに暗い背景 */
+      #nav:not(.scrolled) {
+        background: rgba(7,8,11,0.8);
+        backdrop-filter: blur(12px);
+      }
+
+      /* Sections */
+      .section { padding: 5rem 6vw; }
+
+      /* Vision */
+      .vision-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .vision-image { display: none; }
+
+      /* Philosophy new */
+      .phil-cards { flex-direction: column; margin-bottom: 3rem; }
+      .phil-card-sep { width: 100%; height: 1px; flex-shrink: 0; }
+      .phil-card { padding: 2.5rem 2rem; }
+      .phil-big-letter { font-size: 3.8rem; }
+      .phil-gram { font-size: 2.2rem; }
+      .phil-image-strip { height: 260px; margin-bottom: 3rem; }
+      .phil-body-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Photo breaks */
+      .photo-break { height: 340px; }
+
+      /* Business */
+      .biz-showcase { height: 260px; margin-bottom: 3rem; }
+      .biz-showcase-text { left: 2rem; }
+      .business-cards { grid-template-columns: 1fr; gap: 0; }
+      .biz-card { padding: 2.5rem 2rem; }
+
+      /* Values */
+      .values-img-wrap { height: 220px; margin-bottom: 3rem; }
+
+      /* Company */
+      .company-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .company-photo { height: 280px; }
+      .company-right { padding: 2rem; }
+
+      /* Access */
+      .map-container iframe { height: 300px; }
+
+      /* Message */
+      #message { padding: 5rem 6vw; }
+      #message .message-frame { padding: 2.5rem; }
+
+      /* Footer */
+      footer { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+
+      /* Values */
+      .value-item { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .section { padding: 4rem 5vw; }
+      .hero-frame { width: 85vmin; }
+      .hero-bottom { display: none; }
+      .hero-logo img { height: 40px; }
+      .hero-sub-philosophy { display: none; }
+      .hero-h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+      /* Philosophy small */
+      .phil-card { padding: 2rem 1.5rem; }
+      .phil-big-letter { font-size: 3.2rem; }
+      .phil-gram { font-size: 1.9rem; }
+      .phil-image-strip { height: 200px; margin-bottom: 2rem; }
+      .phil-img-caption { display: none; }
+
+      /* Vision */
+      .vision-vline { display: none; }
+      .vision-text { padding-left: 0; }
+
+      /* Photo breaks */
+      .photo-break { height: 260px; }
+
+      /* Business */
+      .biz-showcase { height: 180px; }
+      .biz-showcase-text { left: 1.5rem; }
+      .biz-showcase-tagline { font-size: 1.1rem; }
+      .biz-card { padding: 2rem 1.5rem; }
+      .business-header { margin-bottom: 3rem; }
+      .values-header { margin-bottom: 2rem; }
+      .values-img-wrap { height: 180px; margin-bottom: 2.5rem; }
+
+      /* Company */
+      .company-photo { height: 200px; }
+      .company-photo-wrap { margin-bottom: 3rem; }
+      .company-right { padding: 1.5rem; }
+      .company-table th { font-size: 0.55rem; padding-right: 1rem; }
+      .company-table td { font-size: 0.8rem; }
+
+      /* Map */
+      .map-container iframe { height: 240px; }
+
+      /* Message */
+      #message .message-frame { padding: 2rem 1.5rem; }
+
+      /* Footer */
+      footer { padding: 2.5rem 5vw; }
+      .footer-links { gap: 1.5rem; flex-wrap: wrap; }
+    }
   </style>
 </head>
-<body>
+<body class="opening-active">
 
-<!-- ==================== NAVIGATION ==================== -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#top" class="nav-logo" aria-label="B-GRAM トップへ">
-      <img src="assets/logo_m.svg" alt="B-GRAM" class="nav-logo-img"
-           onerror="this.src='assets/logo.png'; this.style.filter='brightness(0) invert(1)'">
-    </a>
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <ul class="nav-menu" id="navMenu" role="list">
-      <li><a href="#vision">VISION</a></li>
-      <li><a href="#business">事業内容</a></li>
-      <li><a href="#company">会社概要</a></li>
-      <li><a href="#access">アクセス</a></li>
-      <li><a href="mailto:info@b-gram.co.jp" class="nav-contact">お問い合わせ</a></li>
-    </ul>
-    <div class="lang-switch">
-      <a href="#" class="active">JP</a>
-      <span>/</span>
-      <a href="en/index.html">EN</a>
-    </div>
+<!-- ══ NAVIGATION ════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <img src="assets/logo_m.svg" alt="B-GRAM">
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#vision">Vision</a>
+    <a href="#business">事業内容</a>
+    <a href="#values">Values</a>
+    <a href="#company">会社概要</a>
+    <a href="mailto:info@b-gram.co.jp" class="nav-cta">お問い合わせ</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="top" aria-label="メインビジュアル">
-
-  <!-- 左パネル：ロゴ + サブ情報 -->
-  <div class="hero-left">
-    <div class="hero-logo-area fade-in-up">
-      <img src="assets/logo.svg" alt="B-GRAM" class="hero-logo-main"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <span class="hero-logo-text-fallback" style="display:none;">B-GRAM</span>
-      <p class="hero-logo-caption">ビーグラム株式会社</p>
-    </div>
-
-    <div class="hero-left-rule"></div>
-
-    <p class="hero-left-label fade-in-up delay-1">Real Estate &nbsp;·&nbsp; Osaka</p>
-
-    <p class="hero-left-body fade-in-up delay-2">
-      大阪を拠点とする<br>
-      不動産コンサルティング<br>
-      カンパニー
-    </p>
-
-    <p class="hero-left-vertical">B-GRAM CO., LTD. &nbsp;·&nbsp; OSAKA, JAPAN</p>
+<!-- ══ OPENING ════════════════════════════════ -->
+<div id="opening">
+  <div class="op-scan"></div>
+  <div class="op-frame">
+    <div class="op-corner-detail tl"></div>
+    <div class="op-corner-detail tr"></div>
+    <div class="op-corner-detail bl"></div>
+    <div class="op-corner-detail br"></div>
   </div>
+  <div class="op-frame"></div>
+  <div class="op-frame"></div>
+  <div class="op-inner">
+    <div class="op-logo"><img src="assets/logo_m.svg" alt="B-GRAM"></div>
+    <p class="op-label">Real Estate</p>
+  </div>
+</div>
 
-  <!-- 右パネル：キャッチコピー -->
-  <div class="hero-right">
-    <div class="hero-right-inner">
-
-      <p class="hero-right-label fade-in-up">Our Mission</p>
-
-      <h1 class="hero-headline fade-in-up delay-1">
-        唯一無二の<br>
-        不動産を最大化へ<br>
-        導くパートナー
-      </h1>
-
-      <div class="hero-cta fade-in-up delay-2">
-        <a href="#business" class="btn btn-primary">事業内容を見る</a>
-        <a href="#company"  class="btn btn-outline">会社概要</a>
-      </div>
-
+<!-- ══ HERO ══════════════════════════════════ -->
+<section id="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+    <source src="assets/bg-hero.mov" type="video/mp4">
+    <source src="assets/bg-hero.mov" type="video/quicktime">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-frame">
+    <div class="hero-hline top"></div>
+    <div class="hero-hline bot"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-overline">B-GRAM Real Estate</p>
+    <div class="hero-logo">
+      <img src="assets/logo_m.svg" alt="B-GRAM">
     </div>
-
-    <!-- 数値装飾 -->
-    <div class="hero-right-nums">
-      <div class="hero-stat">
-        <p class="hero-stat-num">大阪</p>
-        <p class="hero-stat-label">本社所在地</p>
-      </div>
-      <div class="hero-stat">
-        <p class="hero-stat-num">No.65425</p>
-        <p class="hero-stat-label">大阪府知事免許</p>
-      </div>
+    <h1 class="hero-h1">唯一無二の不動産を、<br><span class="accent">最大化</span>へ。</h1>
+    <p class="hero-sub">Beyond Every Gram of Value.</p>
+    <p class="hero-sub-philosophy">二極化の時代を、ともに切り拓く</p>
+    <div class="hero-cta">
+      <a href="#vision" class="btn-neon"><span>私たちのビジョン</span></a>
+      <a href="#company" class="btn-ghost">会社概要 →</a>
     </div>
   </div>
-
-  <div class="hero-scroll" aria-hidden="true">
-    <span>SCROLL</span>
-    <div class="hero-scroll-line"></div>
-  </div>
-
-</section>
-
-
-<!-- ==================== VISION ==================== -->
-<section class="vision" id="vision">
-  <div class="vision-inner">
-    <p class="section-label reveal">OUR VISION</p>
-
-    <div class="vision-content">
-      <div class="vision-main reveal">
-        <p class="vision-en">The Future We Envision</p>
-        <h2 class="vision-headline">
-          二極化の時代へ。<br>
-          富裕層の未来を、<br>
-          ともに描く。
-        </h2>
-      </div>
-
-      <div class="vision-text reveal delay-1">
-        <p>
-          私たちは単なる不動産会社ではありません。<br>
-          資産としての不動産の可能性を最大化し、<br>
-          お客様の未来のビジョンを実現するパートナーです。
-        </p>
-        <p>
-          二極化が加速する時代において、<br>
-          真の資産価値を見極め、唯一無二の戦略を<br>
-          ご提案いたします。
-        </p>
-      </div>
+  <div class="hero-bottom">
+    <div class="hero-bottom-left">
+      <div class="bottom-dot"></div>
+      <span class="bottom-text">大阪市中央区 &nbsp;·&nbsp; 不動産事業</span>
     </div>
-
-    <div class="vision-line reveal"></div>
-  </div>
-</section>
-
-
-<!-- ==================== BUSINESS ==================== -->
-<section class="business" id="business">
-  <div class="business-inner">
-    <p class="section-label reveal" style="color:var(--blue);">BUSINESS</p>
-    <h2 class="section-title light reveal">事業内容</h2>
-
-    <div class="business-grid">
-
-      <article class="business-card reveal">
-        <div class="business-card-num">01</div>
-        <svg class="business-card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="18" width="36" height="26" rx="1" stroke="#7DB5C8" stroke-width="1.5"/>
-          <path d="M2 20 L24 4 L46 20" stroke="#7DB5C8" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="18" y="30" width="12" height="14" rx="1" stroke="#7DB5C8" stroke-width="1.5"/>
-        </svg>
-        <h3>不動産売買仲介</h3>
-        <p>
-          収益物件・居住用不動産の売買仲介。<br>
-          マーケット分析に基づく戦略的な<br>
-          資産形成をご支援します。
-        </p>
-      </article>
-
-      <article class="business-card reveal delay-1">
-        <div class="business-card-num">02</div>
-        <svg class="business-card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="8" y="8" width="32" height="32" rx="2" stroke="#7DB5C8" stroke-width="1.5"/>
-          <path d="M8 20 L40 20" stroke="#7DB5C8" stroke-width="1.5"/>
-          <path d="M20 20 L20 40" stroke="#7DB5C8" stroke-width="1.5"/>
-          <circle cx="34" cy="34" r="8" fill="#2C1F18" stroke="#7DB5C8" stroke-width="1.5"/>
-          <path d="M30 34 L33 37 L38 31" stroke="#7DB5C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h3>賃貸管理・仲介</h3>
-        <p>
-          オーナー様の大切な資産を適切に管理。<br>
-          安定した収益運用と入居者満足度の<br>
-          最大化を実現します。
-        </p>
-      </article>
-
-      <article class="business-card reveal delay-2">
-        <div class="business-card-num">03</div>
-        <svg class="business-card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 38 L18 24 L26 30 L34 16 L44 22" stroke="#7DB5C8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="44" cy="22" r="3" fill="#7DB5C8"/>
-          <path d="M8 42 L44 42" stroke="#7DB5C8" stroke-width="1" opacity="0.4"/>
-        </svg>
-        <h3>資産コンサルティング</h3>
-        <p>
-          富裕層向けに不動産を活用した<br>
-          資産最大化戦略をご提案。<br>
-          唯一無二のソリューションを提供します。
-        </p>
-      </article>
-
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="scroll-track"></div>
+      <span class="scroll-label">scroll</span>
     </div>
   </div>
 </section>
 
+<!-- ══ PHOTO BREAK 01 ═══════════════════════ -->
+<div class="photo-break">
+  <img src="assets/bg04.jpg" alt="">
+  <div class="photo-break-overlay"></div>
+</div>
 
-<!-- ==================== COMPANY ==================== -->
-<section class="company" id="company">
-  <div class="company-inner">
-    <p class="section-label reveal">COMPANY</p>
-    <h2 class="section-title reveal">会社概要</h2>
-
-    <div class="company-layout">
-
-      <!-- Left: Image -->
-      <div class="reveal">
-        <div class="company-image-wrap">
-          <img src="assets/company.png" alt="本町TSビル — ビーグラム株式会社" loading="lazy">
-        </div>
-        <p class="company-caption">大阪市中央区　本町TSビル</p>
+<!-- ══ VISION ════════════════════════════════ -->
+<section id="vision" class="section section-bg-dark">
+  <p class="sec-label reveal"><span class="sec-num">01</span> Vision</p>
+  <div class="vision-layout">
+    <div class="vision-text">
+      <div class="vision-vline"></div>
+      <h2 class="vision-h2 reveal">
+        資産に、<span class="accent">魂</span>を<br>吹き込む会社へ。
+      </h2>
+      <p class="vision-body reveal reveal-delay-1">
+        土地は黙っています。建物も、沈黙しています。<br>
+        しかし、その沈黙の中に、誰かの人生が詰まっている。<br>
+        誰かの夢が、記憶が、これからが、静かに宿っています。
+      </p>
+      <p class="vision-body reveal reveal-delay-2">
+        私たちは、不動産を「資産」として扱う前に、「物語」として受け取ります。<br>
+        あなたの土地に、あなたの建物に、もっとも相応しい未来を、<br>
+        一グラムの誠実さで積み上げていく。それが、B-GRAMの仕事です。
+      </p>
+      <p class="vision-body reveal reveal-delay-3">
+        二極化が加速するこの時代。選ばれる不動産と、そうでない不動産の差は、<br>
+        もはや立地や価格だけでは語れません。<br>
+        唯一無二の価値を、最大化へ導くパートナーとして——。
+      </p>
+      <div class="vision-quote reveal reveal-delay-4">
+        <p>「資産の価値とは、数字の中にではなく、<br>人と人との信頼の間に宿るものだ。」</p>
       </div>
+    </div>
+    <div class="vision-image reveal reveal-delay-2">
+      <img src="assets/img1.png" alt="B-GRAM Real Estate">
+      <div class="vision-img-corner"></div>
+    </div>
+  </div>
+</section>
 
-      <!-- Right: Table -->
-      <div class="company-table reveal delay-1">
-        <dl>
-          <div>
-            <dt>社名</dt>
-            <dd>ビーグラム株式会社</dd>
-          </div>
-          <div>
-            <dt>所在地</dt>
-            <dd>〒541-0059<br>大阪市中央区博労町4丁目7-5<br>本町TSビル601</dd>
-          </div>
-          <div>
-            <dt>電話番号</dt>
-            <dd>06-6732-8933</dd>
-          </div>
-          <div>
-            <dt>FAX</dt>
-            <dd>06-6732-8935</dd>
-          </div>
-          <div>
-            <dt>代表取締役</dt>
-            <dd>髙橋 浩介</dd>
-          </div>
-          <div>
-            <dt>事業内容</dt>
-            <dd>不動産事業一般</dd>
-          </div>
-          <div>
-            <dt>資本金</dt>
-            <dd>1,000万円</dd>
-          </div>
-          <div>
-            <dt>免許番号</dt>
-            <dd>大阪府知事（1）第65425号</dd>
-          </div>
-          <div>
-            <dt>所属団体</dt>
-            <dd>全国宅地建物取引業保証協会</dd>
-          </div>
-          <div>
-            <dt>取引銀行</dt>
-            <dd>
-              三菱UFJ銀行／りそな銀行／大阪信用金庫<br>
-              北おおさか信用金庫／成協信用組合<br>
-              大阪商工信用金庫／日本政策金融公庫
-            </dd>
-          </div>
-          <div>
-            <dt>税務顧問</dt>
-            <dd>IKC税理士法人</dd>
-          </div>
-        </dl>
+<!-- ══ PHILOSOPHY ════════════════════════════ -->
+<section id="philosophy" class="section section-bg-mid">
+  <p class="sec-label reveal"><span class="sec-num">02</span> Philosophy</p>
 
-        <div class="company-cta">
-          <a href="mailto:info@b-gram.co.jp" class="btn btn-dark">
-            メールでお問い合わせ
-          </a>
+  <!-- B / GRAM 意味カード -->
+  <div class="phil-cards reveal">
+    <div class="phil-card">
+      <p class="phil-card-tag">The Name, The Will</p>
+      <div class="phil-card-row">
+        <span class="phil-big-letter">B</span>
+        <div class="phil-card-words">
+          <p><em>Beyond</em> — 限界を超えていく</p>
+          <p><em>Build</em> — 価値を築き上げる</p>
+          <p><em>Bridge</em> — 人と資産をつなぐ</p>
         </div>
       </div>
-
+    </div>
+    <div class="phil-card-sep"></div>
+    <div class="phil-card">
+      <p class="phil-card-tag">The Unit, The Weight</p>
+      <div class="phil-card-row">
+        <span class="phil-big-letter phil-gram">GRAM</span>
+        <div class="phil-card-words">
+          <p>1グラムという単位が象徴する</p>
+          <p><em>重さ・密度・精度</em>への哲学</p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-
-<!-- ==================== ACCESS ==================== -->
-<section class="access" id="access">
-  <div class="access-inner">
-    <p class="section-label reveal">ACCESS</p>
-    <h2 class="section-title reveal">アクセス</h2>
-
-    <div class="access-layout">
-
-      <div class="access-info reveal">
-        <address>
-          〒541-0059<br>
-          大阪市中央区博労町4丁目7-5<br>
-          本町TSビル601
-        </address>
-        <dl>
-          <dt>TEL</dt>
-          <dd><a href="tel:0667328933" style="color:inherit;">06-6732-8933</a></dd>
-          <dt>FAX</dt>
-          <dd>06-6732-8935</dd>
-        </dl>
-        <p style="font-size:0.82rem; color:var(--muted); margin-top:1.5rem; line-height:1.8;">
-          地下鉄御堂筋線・四つ橋線「本町駅」<br>
-          徒歩圏内
-        </p>
-      </div>
-
-      <div class="access-map reveal delay-1">
-        <iframe
-          src="https://maps.google.com/maps?q=%E5%A4%A7%E9%98%AA%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%8D%9A%E5%8A%B4%E7%94%BA4%E4%B8%81%E7%9B%AE7-5&output=embed&hl=ja"
-          width="100%" height="100%"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="ビーグラム株式会社 地図">
-        </iframe>
-      </div>
-
-    </div>
+  <!-- イメージストリップ -->
+  <div class="phil-image-strip reveal">
+    <img src="assets/img2.png" alt="B-GRAM Premium Property">
+    <div class="phil-img-overlay"></div>
+    <p class="phil-img-caption">Premium Real Estate — Curated for Those Who Seek More</p>
   </div>
-</section>
 
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer">
-  <div class="footer-inner">
-
-    <div class="footer-top">
-      <div>
-        <p class="footer-info">
-          ビーグラム株式会社<br>
-          〒541-0059 大阪市中央区博労町4丁目7-5 本町TSビル601<br>
-          TEL: 06-6732-8933
-        </p>
-      </div>
-
-      <nav class="footer-links" aria-label="フッターナビゲーション">
-        <a href="#vision">VISION</a>
-        <a href="#business">事業内容</a>
-        <a href="#company">会社概要</a>
-        <a href="#access">アクセス</a>
-        <a href="terms.html">サイト利用規約</a>
-        <a href="privacy.html">個人情報保護方針</a>
-      </nav>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2026 B-GRAM Co., Ltd. All Rights Reserved.</p>
-      <p style="font-size:0.72rem; color:rgba(255,255,255,0.2); letter-spacing:0.05em;">
-        大阪府知事（1）第65425号
+  <!-- 本文 -->
+  <div class="phil-body-grid">
+    <div class="reveal">
+      <h2 class="philosophy-h2">
+        B-GRAMという名前には、<br>ひとつの意志が込められています。
+      </h2>
+      <p class="philosophy-body">
+        「B」は、私たちの姿勢を示す三つの言葉——Beyond、Build、Bridge——の頭文字です。<br>
+        現状の限界を超え（Beyond）、確かな価値を築き（Build）、<br>
+        人と資産、夢と現実をつなぐ（Bridge）存在でありたいという誓いです。
+      </p>
+      <p class="philosophy-body">
+        「GRAM」は、重さの最小単位。<br>
+        1グラムの誠実さを、一つひとつの取引に積み上げていく。<br>
+        軽さではなく、密度と精度で勝負する。それが私たちの流儀です。
       </p>
     </div>
-
+    <div class="reveal reveal-delay-2">
+      <div class="philosophy-block">
+        <p>「1グラムの誠実さを積み重ね、<br>唯一無二の価値を、最大化へ。」</p>
+      </div>
+    </div>
   </div>
+</section>
+
+<!-- ══ BUSINESS ═══════════════════════════════ -->
+<section id="business" class="section section-bg-dark">
+  <div class="section-photo-bg">
+    <img src="assets/bg02.jpg" alt="">
+    <div class="section-photo-bg-overlay"></div>
+  </div>
+  <p class="sec-label reveal"><span class="sec-num">03</span> Business</p>
+  <div class="business-header reveal reveal-delay-1">
+    <h2>三つの事業が、<br>一つの哲学を語ります。</h2>
+  </div>
+
+  <!-- ショーケース画像 -->
+  <div class="biz-showcase reveal">
+    <img src="assets/img3.png" alt="Premium Interior">
+    <div class="biz-showcase-overlay"></div>
+    <div class="biz-showcase-text">
+      <p class="biz-showcase-label">Luxury Real Estate</p>
+      <p class="biz-showcase-tagline">唯一無二の物件に、<br>唯一無二の価値を。</p>
+    </div>
+  </div>
+
+  <div class="business-cards">
+    <div class="biz-card reveal">
+      <span class="biz-num">01</span>
+      <h3 class="biz-title">不動産仲介業</h3>
+      <p class="biz-body">
+        売買・賃貸の仲介を通じて、物件と人を最適に結びつけます。
+        スピードと精度を両立した提案で、唯一無二の出会いをつくります。
+        富裕層から一般層まで、幅広いニーズに対応。
+      </p>
+      <span class="biz-tag">Brokerage</span>
+    </div>
+    <div class="biz-card reveal reveal-delay-2">
+      <span class="biz-num">02</span>
+      <h3 class="biz-title">富裕層向け<br>不動産コンサルティング</h3>
+      <p class="biz-body">
+        資産の組み替え、相続対策、投資戦略まで。
+        高度な専門知識と独自のネットワークで、
+        オーナーの資産価値を最大限に引き上げます。
+      </p>
+      <span class="biz-tag">Consulting</span>
+    </div>
+    <div class="biz-card reveal reveal-delay-3">
+      <span class="biz-num">03</span>
+      <h3 class="biz-title">収益物件の<br>開発事業</h3>
+      <p class="biz-body">
+        企画・設計・販売まで一貫して手がける開発事業。
+        市場の先を読んだ物件づくりで、長期的な収益性と
+        资産価値の向上を実現します。
+      </p>
+      <span class="biz-tag">Development</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VALUES ═════════════════════════════════ -->
+<section id="values" class="section section-bg-mid">
+  <p class="sec-label reveal"><span class="sec-num">04</span> Values</p>
+  <div class="values-header reveal reveal-delay-1">
+    <h2>私たちが守り続ける、<br>五つの矜持。</h2>
+  </div>
+  <div class="values-img-wrap reveal">
+    <img src="assets/img4.png" alt="Premium Property">
+    <div class="values-img-overlay"></div>
+  </div>
+  <div class="values-list">
+    <div class="value-item reveal">
+      <span class="value-num">Ⅰ</span>
+      <div class="value-content">
+        <h3 class="value-title">誠実さを、1グラムずつ積み上げる</h3>
+        <p class="value-body">
+          大きな約束より、小さな誠実を。一件一件の取引に向き合い、
+          積み重ねた信頼こそが、私たちの最大の資産です。
+        </p>
+      </div>
+    </div>
+    <div class="value-item reveal reveal-delay-1">
+      <span class="value-num">Ⅱ</span>
+      <div class="value-content">
+        <h3 class="value-title">唯一無二を、最大化する</h3>
+        <p class="value-body">
+          どんな物件にも、替えのきかない個性があります。
+          その個性を見抜き、磨き上げ、最高の価値へと引き上げることが私たちの使命です。
+        </p>
+      </div>
+    </div>
+    <div class="value-item reveal reveal-delay-2">
+      <span class="value-num">Ⅲ</span>
+      <div class="value-content">
+        <h3 class="value-title">人との関係を、資産と同じくらい大切に</h3>
+        <p class="value-body">
+          最良の不動産は、最良の人間関係から生まれます。
+          お客様・パートナー・地域社会——すべての関係を、長期的な視点で育んでいきます。
+        </p>
+      </div>
+    </div>
+    <div class="value-item reveal reveal-delay-3">
+      <span class="value-num">Ⅳ</span>
+      <div class="value-content">
+        <h3 class="value-title">二極化の時代を、先読みする</h3>
+        <p class="value-body">
+          市場は常に動いています。勝つ物件と負ける物件の差が広がるこの時代に、
+          私たちは常に情報の最前線に立ち、先手を打ち続けます。
+        </p>
+      </div>
+    </div>
+    <div class="value-item reveal reveal-delay-4">
+      <span class="value-num">Ⅴ</span>
+      <div class="value-content">
+        <h3 class="value-title">プロフェッショナルであることを、誇りとする</h3>
+        <p class="value-body">
+          宅地建物取引のプロとして、法令遵守はもちろん、
+          専門知識・倫理観・対人力の三位一体で、業界の信頼を高め続けます。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPANY ════════════════════════════════ -->
+<section id="company" class="section section-bg-dark">
+  <p class="sec-label reveal"><span class="sec-num">05</span> Company</p>
+
+  <!-- 外観写真 -->
+  <div class="company-photo-wrap reveal">
+    <div class="company-photo-inner">
+      <img src="https://dai0703-hub.github.io/B-GRAM/assets/company.png"
+           alt="ビーグラム株式会社 外観" class="company-photo">
+      <div class="company-photo-overlay"></div>
+      <div class="company-photo-frame"></div>
+      <p class="company-photo-caption">B-GRAM Co., Ltd. — 大阪市中央区 本町TSビル</p>
+    </div>
+  </div>
+
+  <!-- 会社概要テーブル + CTA -->
+  <div class="company-grid">
+    <div class="reveal reveal-delay-1">
+      <table class="company-table">
+        <tr>
+          <th>会社名</th>
+          <td>ビーグラム株式会社<small>B-GRAM Co., Ltd.</small></td>
+        </tr>
+        <tr>
+          <th>代表取締役</th>
+          <td>髙橋 浩介</td>
+        </tr>
+        <tr>
+          <th>所在地</th>
+          <td>〒541-0059<br>大阪市中央区博労町4丁目7-5<br>本町TSビル601</td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td><a href="tel:0667328933" style="color:inherit;text-decoration:none;">06-6732-8933</a></td>
+        </tr>
+        <tr>
+          <th>FAX</th>
+          <td>06-6732-8935</td>
+        </tr>
+        <tr>
+          <th>事業内容</th>
+          <td>不動産事業一般</td>
+        </tr>
+        <tr>
+          <th>資本金</th>
+          <td>1,000万円</td>
+        </tr>
+        <tr>
+          <th>免許番号</th>
+          <td>大阪府知事（1）第65425号</td>
+        </tr>
+        <tr>
+          <th>所属団体</th>
+          <td>全国宅地建物取引業保証協会</td>
+        </tr>
+        <tr>
+          <th>取引銀行</th>
+          <td>三菱UFJ銀行 / りそな銀行<br>大阪信用金庫 / 北おおさか信用金庫<br>成協信用組合 / 大阪商工信用金庫<br>日本政策金融公庫</td>
+        </tr>
+        <tr>
+          <th>税務顧問</th>
+          <td>IKC税理士法人</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="company-right reveal reveal-delay-2">
+      <p class="message-overline" style="margin-bottom:1.5rem;">Contact</p>
+      <p class="company-quote">
+        「最良の不動産とは、<br>
+        最良の人間関係から<em>生まれる</em>。」
+      </p>
+      <p class="company-quote-attr">— 代表取締役 髙橋 浩介</p>
+      <div class="company-contact">
+        <p class="company-contact-item">TEL<span>06-6732-8933</span></p>
+        <p class="company-contact-item">FAX<span>06-6732-8935</span></p>
+        <p class="company-contact-item">受付時間<span>平日 9:00 — 18:00</span></p>
+      </div>
+      <a href="mailto:info@b-gram.co.jp" class="btn-neon" style="display:inline-flex;">
+        <span>メールでお問い合わせ</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- アクセスMAP -->
+  <div class="access-wrap reveal">
+    <div class="access-header">
+      <div class="sec-label" style="margin:0;">
+        <span class="access-title">Access</span>
+      </div>
+    </div>
+    <p class="access-address">〒541-0059 大阪市中央区博労町4丁目7-5 本町TSビル601　TEL: 06-6732-8933</p>
+    <div class="map-container">
+      <div class="map-overlay-corner tl"></div>
+      <div class="map-overlay-corner br"></div>
+      <iframe
+        src="https://maps.google.com/maps?q=%E5%A4%A7%E9%98%AA%E5%B8%82%E4%B8%AD%E5%A4%AE%E5%8C%BA%E5%8D%9A%E5%8A%B4%E7%94%BA4%E4%B8%81%E7%9B%AE7-5+%E6%9C%AC%E7%94%BATSビル&output=embed&hl=ja&z=16"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+        title="ビーグラム株式会社 地図">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PHOTO BREAK 02 ═══════════════════════ -->
+<div class="photo-break">
+  <img src="assets/bg01.jpg" alt="">
+  <div class="photo-break-overlay"></div>
+</div>
+
+<!-- ══ MESSAGE ════════════════════════════════ -->
+<section id="message" class="section">
+  <div class="section-photo-bg">
+    <img src="assets/bg11.jpg" alt="">
+    <div class="section-photo-bg-overlay"></div>
+  </div>
+  <div class="message-frame reveal">
+    <p class="message-overline">B-GRAM, Beyond Every Gram of Value.</p>
+    <h2 class="message-h2">すべての出会いに、<br>誠実であるために。</h2>
+    <p class="message-body">
+      B-GRAMは、取引所ではなく、信頼の工房です。<br>
+      ここで交わされるすべての言葉が、契約書のインクよりも深く、<br>
+      お客様の人生に刻まれていくことを、私たちの誇りとしております。<br><br>
+      不動産という行為を通じて、関わるすべての方の生活が豊かになること。<br>
+      その一点に向かって、私たちは今日も、1グラムの誠実さを積み上げてまいります。
+    </p>
+    <p class="message-tagline">B — Beyond. Build. Bridge.</p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/logo_m.svg" alt="B-GRAM">
+  </div>
+  <div class="footer-links">
+    <a href="privacy.html">個人情報保護方針</a>
+    <a href="terms.html">サイト利用規約</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 B-GRAM Co., Ltd. All Rights Reserved.</p>
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+  /* ── Custom Cursor ────────────────────────── */
+  const cursor     = document.querySelector('.cursor');
+  const cursorRing = document.querySelector('.cursor-ring');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top  = mouseY + 'px';
+    });
+    (function animateRing() {
+      ringX += (mouseX - ringX) * 0.1;
+      ringY += (mouseY - ringY) * 0.1;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top  = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+    document.querySelectorAll('a, button, .biz-card, .value-item').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); cursorRing.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); cursorRing.classList.remove('hover'); });
+    });
+  }
+
+  /* ── Opening ─────────────────────────────── */
+  window.addEventListener('load', () => {
+    const opening = document.getElementById('opening');
+    const frames  = document.querySelectorAll('.op-frame');
+
+    setTimeout(() => { frames.forEach(f => f.classList.add('pulse')); }, 1300);
+
+    setTimeout(() => {
+      frames.forEach(f => f.classList.remove('pulse'));
+      opening.classList.add('exit');
+      setTimeout(() => {
+        opening.style.display = 'none';
+        document.body.classList.remove('opening-active');
+      }, 900);
+    }, 2200);
+  });
+
+  /* ── Hamburger ────────────────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    document.body.classList.remove('menu-open');
+  }
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      hamburger.classList.add('active');
+      navLinks.classList.add('open');
+      document.body.classList.add('menu-open');
+    }
+  });
+  /* アンカーリンク: メニューを閉じてからスクロール */
+  navLinks.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      closeMenu();
+      setTimeout(() => {
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
+    });
+  });
+  /* 外部リンク(mailto等)はそのまま閉じるだけ */
+  navLinks.querySelectorAll('a:not([href^="#"])').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+
+  /* ── Nav scroll + active ─────────────────── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* Nav active link on scroll */
+  const sections  = document.querySelectorAll('section[id]');
+  const links     = document.querySelectorAll('.nav-links a[href^="#"]');
+  const secObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.45 });
+  sections.forEach(s => secObserver.observe(s));
+
+  /* ── Scroll reveal ───────────────────────── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  /* ── Hero parallax ───────────────────────── */
+  const heroVideo = document.querySelector('.hero-video');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    if (scrolled < window.innerHeight && heroVideo) {
+      heroVideo.style.transform = `scale(1.05) translateY(${scrolled * 0.15}px)`;
+    }
+  }, { passive: true });
+
+  /* ── Business card tilt ──────────────────── */
+  document.querySelectorAll('.biz-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top)  / rect.height;
+      const tiltX = (y - 0.5) * -8;
+      const tiltY = (x - 0.5) *  8;
+      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+      card.style.setProperty('--mx', `${x * 100}%`);
+      card.style.setProperty('--my', `${y * 100}%`);
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  /* ── Text scramble on section headings ──── */
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  function scramble(el) {
+    const original = el.dataset.text || el.textContent;
+    el.dataset.text = original;
+    let frame = 0;
+    const totalFrames = 18;
+    const interval = setInterval(() => {
+      el.textContent = original.split('').map((ch, i) => {
+        if (ch === ' ' || ch === '、' || ch === '。' || ch === '・' || ch === '\n') return ch;
+        if (frame / totalFrames > i / original.length) return ch;
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join('');
+      frame++;
+      if (frame > totalFrames) {
+        el.textContent = original;
+        clearInterval(interval);
+      }
+    }, 40);
+  }
+
+  /* Observe sec-labels for scramble */
+  const scrambleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const label = entry.target;
+        scramble(label);
+        scrambleObserver.unobserve(label);
+      }
+    });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.sec-num').forEach(el => scrambleObserver.observe(el));
+</script>
 </body>
 </html>
