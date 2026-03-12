@@ -102,17 +102,27 @@
 
     /* ── HAMBURGER ────────────────────────────── */
     .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px; z-index: 8100;
+      display: none; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+      cursor: pointer; z-index: 8100;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(126,166,177,0.5);
+      border-radius: 4px;
+      background: rgba(7,8,11,0.92);
+      transition: border-color 0.25s, background 0.25s;
     }
+    .hamburger:hover { border-color: var(--blue); }
     .hamburger span {
-      display: block; width: 24px; height: 1px;
-      background: rgba(255,255,255,0.6);
-      transition: transform 0.3s var(--ease), opacity 0.3s, background 0.3s;
+      display: block; width: 20px; height: 2px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease), opacity 0.3s, width 0.3s, background 0.3s;
     }
-    .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--blue); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--blue); }
+    .hamburger.active { border-color: var(--blue); background: rgba(7,8,11,0.95); }
+    .hamburger.active span { background: var(--blue); }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    body.menu-open { overflow: hidden; }
 
     /* ── OPENING ──────────────────────────────── */
     #opening {
@@ -714,7 +724,7 @@
     .vision-image img {
       width: 100%; height: 100%; min-height: 520px;
       object-fit: cover; display: block;
-      filter: brightness(0.72) saturate(0.85);
+      filter: brightness(0.92) saturate(0.98);
       transition: transform 0.8s var(--ease);
     }
     .vision-image:hover img { transform: scale(1.04); }
@@ -760,7 +770,7 @@
     }
     .phil-image-strip img {
       width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(0.68) saturate(0.82);
+      filter: brightness(0.82) saturate(0.78);
       transition: transform 0.8s var(--ease);
     }
     .phil-image-strip:hover img { transform: scale(1.03); }
@@ -789,7 +799,7 @@
     }
     .biz-showcase img {
       width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(0.72) saturate(0.85);
+      filter: brightness(0.88) saturate(0.95);
       transition: transform 0.8s var(--ease);
     }
     .biz-showcase:hover img { transform: scale(1.03); }
@@ -819,7 +829,7 @@
     }
     .values-img-wrap img {
       width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(0.65) saturate(0.8);
+      filter: brightness(0.88) saturate(0.95);
       transition: transform 0.8s var(--ease);
     }
     .values-img-wrap:hover img { transform: scale(1.03); }
@@ -828,6 +838,42 @@
       background: linear-gradient(to bottom, transparent 40%, rgba(13,16,22,0.75) 100%);
     }
 
+    /* ── PHOTO BREAK (section間の写真帯) ─────────── */
+    .photo-break {
+      position: relative; overflow: hidden;
+      height: 480px; width: 100%;
+    }
+    .photo-break img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.82) saturate(0.92);
+      transition: transform 1.4s var(--ease);
+    }
+    .photo-break:hover img { transform: scale(1.04); }
+    .photo-break-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(7,8,11,0.55) 0%, transparent 20%, transparent 80%, rgba(7,8,11,0.55) 100%);
+    }
+
+    /* ── SECTION BG PHOTO ────────────────────── */
+    .section-photo-bg {
+      position: absolute; inset: 0; overflow: hidden;
+      pointer-events: none; z-index: 0;
+    }
+    .section-photo-bg img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.22) saturate(0.6);
+    }
+    .section-photo-bg-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(7,8,11,0.1) 0%, rgba(7,8,11,0.65) 100%);
+    }
+    /* sections using photo bg need position:relative and children z-index:1 */
+    #business { position: relative; overflow: hidden; }
+    #business > *:not(.section-photo-bg) { position: relative; z-index: 1; }
+    #message  { position: relative; overflow: hidden; }
+    #message  > *:not(.section-photo-bg) { position: relative; z-index: 1; }
+
     /* ── UTILITIES ────────────────────────────── */
     @keyframes itemIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -835,19 +881,35 @@
     @media (max-width: 960px) {
       /* Nav mobile */
       .nav-links {
-        position: fixed; inset: 0; top: 72px;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
         flex-direction: column; justify-content: center; align-items: center;
-        gap: 3rem; background: rgba(7,8,11,0.98);
-        backdrop-filter: blur(20px);
+        gap: 2.8rem;
+        background: #07080b;
+        padding-top: 72px;
         transform: translateX(100%);
-        transition: transform 0.5s var(--ease);
-        z-index: 7999;
+        transition: transform 0.4s var(--ease);
+        z-index: 7990;
+        overflow-y: auto;
       }
       .nav-links.open { transform: translateX(0); }
-      .nav-links a { font-size: 0.85rem; letter-spacing: 0.3em; color: var(--text-sub); }
-      .nav-links a:hover { color: var(--blue); }
-      .nav-cta { border: 1px solid var(--line) !important; padding: 0.8rem 2rem !important; }
+      .nav-links a {
+        font-size: 1rem; letter-spacing: 0.3em;
+        color: rgba(255,255,255,0.75);
+      }
+      .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+      .nav-cta {
+        border: 1px solid var(--line) !important;
+        padding: 0.9rem 2.4rem !important;
+        font-size: 0.78rem !important;
+      }
       .hamburger { display: flex; }
+      /* ナビバーは常にメニューの上に表示 */
+      #nav { z-index: 8000; }
+      /* スクロール前もナビバーに暗い背景 */
+      #nav:not(.scrolled) {
+        background: rgba(7,8,11,0.8);
+        backdrop-filter: blur(12px);
+      }
 
       /* Sections */
       .section { padding: 5rem 6vw; }
@@ -864,6 +926,9 @@
       .phil-gram { font-size: 2.2rem; }
       .phil-image-strip { height: 260px; margin-bottom: 3rem; }
       .phil-body-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* Photo breaks */
+      .photo-break { height: 340px; }
 
       /* Business */
       .biz-showcase { height: 260px; margin-bottom: 3rem; }
@@ -911,6 +976,9 @@
       /* Vision */
       .vision-vline { display: none; }
       .vision-text { padding-left: 0; }
+
+      /* Photo breaks */
+      .photo-break { height: 260px; }
 
       /* Business */
       .biz-showcase { height: 180px; }
@@ -1017,6 +1085,12 @@
   </div>
 </section>
 
+<!-- ══ PHOTO BREAK 01 ═══════════════════════ -->
+<div class="photo-break">
+  <img src="assets/bg04.jpg" alt="">
+  <div class="photo-break-overlay"></div>
+</div>
+
 <!-- ══ VISION ════════════════════════════════ -->
 <section id="vision" class="section section-bg-dark">
   <p class="sec-label reveal"><span class="sec-num">01</span> Vision</p>
@@ -1116,6 +1190,10 @@
 
 <!-- ══ BUSINESS ═══════════════════════════════ -->
 <section id="business" class="section section-bg-dark">
+  <div class="section-photo-bg">
+    <img src="assets/bg02.jpg" alt="">
+    <div class="section-photo-bg-overlay"></div>
+  </div>
   <p class="sec-label reveal"><span class="sec-num">03</span> Business</p>
   <div class="business-header reveal reveal-delay-1">
     <h2>三つの事業が、<br>一つの哲学を語ります。</h2>
@@ -1335,8 +1413,18 @@
   </div>
 </section>
 
+<!-- ══ PHOTO BREAK 02 ═══════════════════════ -->
+<div class="photo-break">
+  <img src="assets/bg01.jpg" alt="">
+  <div class="photo-break-overlay"></div>
+</div>
+
 <!-- ══ MESSAGE ════════════════════════════════ -->
 <section id="message" class="section">
+  <div class="section-photo-bg">
+    <img src="assets/bg11.jpg" alt="">
+    <div class="section-photo-bg-overlay"></div>
+  </div>
   <div class="message-frame reveal">
     <p class="message-overline">B-GRAM, Beyond Every Gram of Value.</p>
     <h2 class="message-h2">すべての出会いに、<br>誠実であるために。</h2>
@@ -1408,15 +1496,35 @@
   /* ── Hamburger ────────────────────────────── */
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
+  function closeMenu() {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    document.body.classList.remove('menu-open');
+  }
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    const isOpen = navLinks.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      hamburger.classList.add('active');
+      navLinks.classList.add('open');
+      document.body.classList.add('menu-open');
+    }
   });
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
+  /* アンカーリンク: メニューを閉じてからスクロール */
+  navLinks.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      closeMenu();
+      setTimeout(() => {
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
     });
+  });
+  /* 外部リンク(mailto等)はそのまま閉じるだけ */
+  navLinks.querySelectorAll('a:not([href^="#"])').forEach(a => {
+    a.addEventListener('click', closeMenu);
   });
 
   /* ── Nav scroll + active ─────────────────── */
