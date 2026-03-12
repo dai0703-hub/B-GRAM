@@ -13,13 +13,13 @@
     :root {
       --blue:     #7ea6b1;
       --grey:     #4e4a46;
-      --bg-dark:  #040404;
-      --bg-mid:   #060606;
+      --bg-dark:  #07080b;
+      --bg-mid:   #0d1016;
       --text:     #ffffff;
-      --text-sub: rgba(255,255,255,0.55);
-      --text-dim: rgba(255,255,255,0.25);
-      --line:     rgba(126,166,177,0.22);
-      --line-dim: rgba(126,166,177,0.1);
+      --text-sub: rgba(255,255,255,0.65);
+      --text-dim: rgba(255,255,255,0.38);
+      --line:     rgba(126,166,177,0.3);
+      --line-dim: rgba(126,166,177,0.14);
       --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
     html { scroll-behavior: smooth; }
@@ -167,7 +167,11 @@
     /* ── HERO ─────────────────────────────────── */
     #hero {
       position: relative; width: 100%; height: 100vh;
-      overflow: hidden; background: var(--bg-dark);
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(126,166,177,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, rgba(78,74,70,0.12) 0%, transparent 60%),
+        #07080b;
     }
     .hero-video {
       position: absolute; inset: 0; width: 100%; height: 100%;
@@ -366,7 +370,7 @@
     }
 
     /* ── PHILOSOPHY ───────────────────────────── */
-    #philosophy { min-height: 100vh; display: flex; align-items: center; }
+    #philosophy { min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
     .philosophy-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
       align-items: center; max-width: 1100px; margin: 0 auto;
@@ -708,14 +712,14 @@
       .nav-links {
         position: fixed; inset: 0; top: 72px;
         flex-direction: column; justify-content: center; align-items: center;
-        gap: 3rem; background: rgba(4,4,4,0.98);
+        gap: 3rem; background: rgba(7,8,11,0.98);
         backdrop-filter: blur(20px);
         transform: translateX(100%);
         transition: transform 0.5s var(--ease);
         z-index: 7999;
       }
       .nav-links.open { transform: translateX(0); }
-      .nav-links a { font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-sub); }
+      .nav-links a { font-size: 0.85rem; letter-spacing: 0.3em; color: var(--text-sub); }
       .nav-links a:hover { color: var(--blue); }
       .nav-cta { border: 1px solid var(--line) !important; padding: 0.8rem 2rem !important; }
       .hamburger { display: flex; }
@@ -723,12 +727,42 @@
       /* Sections */
       .section { padding: 5rem 6vw; }
 
-      /* Philosophy */
-      .philosophy-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .philosophy-bg-text { font-size: clamp(5rem, 20vw, 10rem); }
+      /* Philosophy — full redesign for mobile */
+      .philosophy-grid { grid-template-columns: 1fr; gap: 0; }
+      .philosophy-bg-text { display: none; }
+
+      /* Left block: meaning cards */
+      .philosophy-left {
+        border: 1px solid var(--line);
+        border-bottom: none;
+        padding: 2rem 2rem 0.5rem;
+        background: rgba(126,166,177,0.03);
+        overflow: visible;
+      }
+      .philosophy-tagline { margin-bottom: 1.2rem; font-size: 0.6rem; }
+      .philosophy-meaning { gap: 0; margin-bottom: 0; }
+      .meaning-item {
+        align-items: flex-start; gap: 1.2rem;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .meaning-item:last-child { border-bottom: none; }
+      .meaning-letter { font-size: 2.2rem; min-width: 2.5rem; flex-shrink: 0; }
+      .meaning-text { font-size: 0.88rem; line-height: 2.0; }
+
+      /* Right block: text content */
+      .philosophy-right {
+        border: 1px solid var(--line);
+        border-top: 2px solid var(--blue);
+        padding: 2.5rem 2rem;
+      }
+      .philosophy-h2 { font-size: clamp(1.2rem, 4vw, 1.6rem); margin-bottom: 1.5rem; }
+      .philosophy-body { font-size: 0.88rem; line-height: 2.2; margin-bottom: 1.5rem; }
+      .philosophy-block { padding: 1.2rem 1.5rem; }
 
       /* Business */
       .business-cards { grid-template-columns: 1fr; gap: 0; }
+      .biz-card { padding: 2.5rem 2rem; }
 
       /* Company */
       .company-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -739,6 +773,7 @@
       .map-container iframe { height: 300px; }
 
       /* Message */
+      #message { padding: 5rem 6vw; }
       #message .message-frame { padding: 2.5rem; }
 
       /* Footer */
@@ -750,18 +785,42 @@
 
     @media (max-width: 600px) {
       .section { padding: 4rem 5vw; }
-      .hero-frame { width: 80vmin; }
+      .hero-frame { width: 85vmin; }
       .hero-bottom { display: none; }
       .hero-logo img { height: 40px; }
       .hero-sub-philosophy { display: none; }
-      #message .message-frame { padding: 2rem 1.5rem; }
+      .hero-h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
+
+      /* Philosophy small screen */
+      .philosophy-left { padding: 1.5rem 1.5rem 0.5rem; }
+      .philosophy-right { padding: 2rem 1.5rem; }
+      .meaning-letter { font-size: 1.9rem; }
+
+      /* Vision */
+      .vision-vline { display: none; }
+      .vision-inner { padding-left: 0; }
+
+      /* Business */
+      .biz-card { padding: 2rem 1.5rem; }
       .business-header { margin-bottom: 3rem; }
       .values-header { margin-bottom: 3rem; }
-      .company-photo { height: 220px; }
+
+      /* Company */
+      .company-photo { height: 200px; }
       .company-photo-wrap { margin-bottom: 3rem; }
+      .company-right { padding: 1.5rem; }
+      .company-table th { font-size: 0.55rem; padding-right: 1rem; }
+      .company-table td { font-size: 0.8rem; }
+
+      /* Map */
       .map-container iframe { height: 240px; }
+
+      /* Message */
+      #message .message-frame { padding: 2rem 1.5rem; }
+
+      /* Footer */
       footer { padding: 2.5rem 5vw; }
-      .footer-links { gap: 1.2rem; }
+      .footer-links { gap: 1.5rem; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -807,7 +866,7 @@
 
 <!-- ══ HERO ══════════════════════════════════ -->
 <section id="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata">
     <source src="assets/bg-hero.mov" type="video/mp4">
     <source src="assets/bg-hero.mov" type="video/quicktime">
   </video>
