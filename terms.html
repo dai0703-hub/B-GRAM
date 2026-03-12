@@ -4,115 +4,258 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>サイト利用規約 | ビーグラム株式会社</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:     #7ea6b1;
+      --bg-dark:  #040404;
+      --text-sub: rgba(255,255,255,0.55);
+      --text-dim: rgba(255,255,255,0.25);
+      --line:     rgba(126,166,177,0.22);
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg-dark); color: #fff; overflow-x: hidden; }
+
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 72px;
+      z-index: 8000; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      background: rgba(4,4,4,0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo img { height: 26px; width: auto; }
+    .nav-back {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 0.3em; color: var(--text-dim); text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-back:hover { color: var(--blue); }
+
+    .page-hero {
+      padding: 10rem 8vw 5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: 'TERMS'; position: absolute; right: 5vw; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 300; color: rgba(126,166,177,0.03);
+      letter-spacing: -0.02em; pointer-events: none; user-select: none;
+    }
+    .page-overline {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.6rem;
+      letter-spacing: 0.6em; color: var(--blue); text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .page-h1 {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: clamp(1.6rem, 3.5vw, 3rem);
+      line-height: 1.6; letter-spacing: 0.05em; color: #fff;
+    }
+    .page-date {
+      margin-top: 1.5rem;
+      font-family: 'Cormorant Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 0.3em; color: var(--text-dim);
+    }
+
+    .page-content { max-width: 860px; margin: 0 auto; padding: 6rem 8vw 8rem; }
+
+    .policy-intro {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.92rem; line-height: 2.3; letter-spacing: 0.06em;
+      color: var(--text-sub); margin-bottom: 4rem;
+      padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .policy-section { margin-bottom: 3.5rem; }
+    .policy-num {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.5em; color: var(--blue); text-transform: uppercase;
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;
+    }
+    .policy-num::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+    .policy-h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 300;
+      font-size: 1.05rem; letter-spacing: 0.08em; color: #fff;
+      margin-bottom: 1rem;
+    }
+    .policy-body {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.85rem; line-height: 2.3; letter-spacing: 0.06em;
+      color: var(--text-sub);
+    }
+    .policy-list { list-style: none; margin-top: 1rem; }
+    .policy-list li {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.85rem; line-height: 2.1; letter-spacing: 0.06em;
+      color: var(--text-sub); padding-left: 1.2rem; position: relative;
+    }
+    .policy-list li::before { content: '—'; position: absolute; left: 0; color: rgba(126,166,177,0.4); }
+
+    .policy-company {
+      margin-top: 4rem; padding: 2rem 2.5rem;
+      border: 1px solid var(--line); position: relative;
+    }
+    .policy-company::before {
+      content: ''; position: absolute; top: -1px; left: 0;
+      width: 40px; height: 1px; background: var(--blue);
+    }
+    .policy-company p {
+      font-family: 'Noto Serif JP', serif; font-weight: 200;
+      font-size: 0.82rem; line-height: 2.0; letter-spacing: 0.06em;
+      color: var(--text-sub);
+    }
+    .policy-company a { color: var(--blue); text-decoration: none; }
+
+    footer {
+      background: #020202; padding: 3rem 8vw;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo img { height: 22px; opacity: 0.5; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.3em; color: rgba(255,255,255,0.18);
+      text-decoration: none; transition: color 0.25s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.45); }
+    .footer-copy {
+      font-family: 'Cormorant Garamond', serif; font-size: 0.58rem;
+      letter-spacing: 0.2em; color: rgba(255,255,255,0.15);
+    }
+    @media (max-width: 768px) {
+      .page-content { padding: 4rem 6vw 6rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="nav scrolled" id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="B-GRAM トップへ">
-      <img src="assets/logo-white.png" alt="B-GRAM"
-           onerror="this.src='assets/logo.png'; this.style.filter='brightness(0) invert(1)'">
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="index.html#vision">VISION</a></li>
-      <li><a href="index.html#business">事業内容</a></li>
-      <li><a href="index.html#company">会社概要</a></li>
-      <li><a href="index.html#access">アクセス</a></li>
-      <li><a href="mailto:info@b-gram.co.jp" class="nav-contact">お問い合わせ</a></li>
-    </ul>
-    <div class="lang-switch">
-      <a href="#" class="active">JP</a>
-      <span>/</span>
-      <a href="en/terms.html">EN</a>
-    </div>
-  </div>
+<nav id="nav">
+  <a href="concept-c-neon.html" class="nav-logo">
+    <img src="assets/logo_m.svg" alt="B-GRAM">
+  </a>
+  <a href="concept-c-neon.html" class="nav-back">← トップページへ戻る</a>
 </nav>
 
-<!-- Page Hero -->
-<div class="page-hero" style="margin-top:var(--nav-h);">
-  <div class="page-hero-inner">
-    <p class="section-label">LEGAL</p>
-    <h1>サイト利用規約</h1>
-  </div>
+<div class="page-hero">
+  <p class="page-overline">Legal</p>
+  <h1 class="page-h1">サイト利用規約</h1>
+  <p class="page-date">制定日：2025年1月1日</p>
 </div>
 
-<!-- Content -->
 <div class="page-content">
-  <p class="last-updated">最終更新日：2024年6月26日</p>
-
-  <p>ビーグラム株式会社（以下「当社」）が運営するウェブサイト（以下「本サイト」）をご利用いただく前に、以下の利用規約（以下「本規約」）をお読みください。本サイトをご利用いただくことで、本規約に同意いただいたものとみなします。</p>
-
-  <h2>第1条（適用範囲）</h2>
-  <p>本規約は、本サイトの利用に関して当社とすべての利用者に対して適用されます。</p>
-
-  <h2>第2条（著作権等）</h2>
-  <p>本サイトに掲載されているテキスト・画像・デザイン・ロゴその他一切のコンテンツの著作権は、当社または正当な権利を有する第三者に帰属します。無断転載・複製・改変・二次利用等を禁じます。</p>
-
-  <h2>第3条（免責事項）</h2>
-  <p>当社は本サイトに掲載する情報の正確性・完全性・有用性について最善を尽くしますが、その内容を保証するものではありません。本サイトの情報を利用したことにより生じた損害について、当社は一切の責任を負いません。</p>
-  <p>本サイトに掲載されている情報は、予告なく変更・削除される場合があります。</p>
-
-  <h2>第4条（リンク）</h2>
-  <p>本サイトへのリンクは原則として自由ですが、内容・性質によってはお断りする場合があります。また、本サイトに掲載された外部リンク先のコンテンツ・サービスについて、当社は責任を負いません。</p>
-
-  <h2>第5条（Cookie等の利用）</h2>
-  <p>本サイトでは、ウェブサイトの利便性向上・アクセス解析のためにCookieを利用する場合があります。ブラウザの設定によりCookieを無効にすることができますが、一部機能が制限される場合があります。</p>
-
-  <h2>第6条（禁止事項）</h2>
-  <ul>
-    <li>本サイトへの不正アクセスや、その試みとなる行為</li>
-    <li>本サイトの運営を妨害する行為</li>
-    <li>当社または第三者の権利・利益を侵害する行為</li>
-    <li>その他、法令または公序良俗に違反する行為</li>
-  </ul>
-
-  <h2>第7条（準拠法・管轄裁判所）</h2>
-  <p>本規約の解釈・適用は日本法に準拠するものとします。本規約に関する紛争については、大阪地方裁判所を専属的合意管轄裁判所とします。</p>
-
-  <h2>第8条（規約の変更）</h2>
-  <p>当社は必要に応じて本規約を変更できるものとします。変更後の規約は本サイトへの掲載をもって効力を生じます。</p>
-
-  <h2>お問い合わせ</h2>
-  <p>
-    本規約に関するお問い合わせは下記までご連絡ください。<br>
-    ビーグラム株式会社<br>
-    〒541-0059 大阪市中央区博労町4丁目7-5 本町TSビル601<br>
-    TEL: 06-6732-8933<br>
-    E-mail: <a href="mailto:info@b-gram.co.jp" style="color:var(--blue);">info@b-gram.co.jp</a>
+  <p class="policy-intro">
+    本規約は、ビーグラム株式会社（以下「当社」）が運営するウェブサイト（以下「本サイト」）の利用条件を定めるものです。
+    本サイトにアクセスされた方（以下「利用者」）は、本規約に同意されたものとみなします。
+    当社は予告なく本規約を変更する場合があり、変更後の規約は本サイトに掲載した時点で効力を生じます。
   </p>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 01</p>
+    <h2 class="policy-h2">著作権・知的財産権</h2>
+    <p class="policy-body">
+      本サイトに掲載されているすべてのコンテンツ（文章、画像、動画、デザイン、ロゴ等）の著作権その他知的財産権は、
+      当社または正当な権利を有する第三者に帰属します。
+      利用者は、当社の事前の書面による許可なく、これらのコンテンツを複製・転用・販売・二次利用することはできません。
+    </p>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 02</p>
+    <h2 class="policy-h2">禁止事項</h2>
+    <p class="policy-body">利用者は、本サイトの利用にあたり、以下の行為を行ってはなりません。</p>
+    <ul class="policy-list">
+      <li>法令または公序良俗に違反する行為</li>
+      <li>当社または第三者の知的財産権・プライバシー・名誉・信用を侵害する行為</li>
+      <li>本サイトのサーバーやネットワークに過度な負荷をかける行為</li>
+      <li>本サイトの運営を妨害する行為</li>
+      <li>不正アクセスその他コンピュータへの不正行為</li>
+      <li>虚偽の情報を提供する行為</li>
+      <li>その他、当社が不適切と判断する行為</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 03</p>
+    <h2 class="policy-h2">免責事項</h2>
+    <p class="policy-body">
+      当社は、本サイトに掲載する情報の正確性・完全性・有用性について最善を尽くしますが、
+      その正確性・完全性・最新性を保証するものではありません。
+      本サイトの利用または利用不能により生じた損害について、当社は一切の責任を負いません。
+    </p>
+    <p class="policy-body">
+      また、本サイトからリンクされた外部サイトの内容については、当社は責任を負いません。
+      リンク先のウェブサイトの利用に際しては、当該サイトの利用規約に従ってください。
+    </p>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 04</p>
+    <h2 class="policy-h2">サービスの変更・中断・終了</h2>
+    <p class="policy-body">
+      当社は、システムメンテナンス・障害対応・その他の事由により、
+      事前の予告なく本サイトの全部または一部のサービスを変更・中断・終了する場合があります。
+      これにより利用者に損害が生じた場合でも、当社は責任を負いません。
+    </p>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 05</p>
+    <h2 class="policy-h2">個人情報の取り扱い</h2>
+    <p class="policy-body">
+      本サイトを通じて取得する個人情報については、別途定める
+      「個人情報保護方針」に従い適切に管理・利用します。
+    </p>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 06</p>
+    <h2 class="policy-h2">Cookie・アクセス解析</h2>
+    <p class="policy-body">
+      本サイトでは、サービス向上・利用状況把握のためにCookieおよびアクセス解析ツールを使用することがあります。
+      これらは個人を特定するものではありませんが、ご不明の点はお問い合わせください。
+    </p>
+  </div>
+
+  <div class="policy-section">
+    <p class="policy-num">Article 07</p>
+    <h2 class="policy-h2">準拠法・管轄裁判所</h2>
+    <p class="policy-body">
+      本規約は日本法に準拠するものとし、本サイトの利用に関する一切の紛争については、
+      大阪地方裁判所を第一審の専属的合意管轄裁判所とします。
+    </p>
+  </div>
+
+  <div class="policy-company">
+    <p>
+      【お問い合わせ窓口】<br><br>
+      ビーグラム株式会社<br>
+      〒541-0059 大阪市中央区博労町4丁目7-5 本町TSビル601<br>
+      TEL：06-6732-8933　FAX：06-6732-8935<br>
+      受付時間：平日 9:00〜18:00<br>
+      Email：<a href="mailto:info@b-gram.co.jp">info@b-gram.co.jp</a>
+    </p>
+  </div>
 </div>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo-wrap">
-          <img src="assets/logo-white.png" alt="B-GRAM"
-               onerror="this.src='assets/logo.png'; this.style.filter='brightness(0) invert(1)'">
-        </div>
-        <p class="footer-info">ビーグラム株式会社</p>
-      </div>
-      <nav class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="terms.html">サイト利用規約</a>
-        <a href="privacy.html">個人情報保護方針</a>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2024 B-GRAM Co., Ltd. All Rights Reserved.</p>
-    </div>
+<footer>
+  <div class="footer-logo">
+    <img src="assets/logo_m.svg" alt="B-GRAM">
   </div>
+  <div class="footer-links">
+    <a href="privacy.html">個人情報保護方針</a>
+    <a href="terms.html">サイト利用規約</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 B-GRAM Co., Ltd. All Rights Reserved.</p>
 </footer>
 
-<script src="js/main.js"></script>
 </body>
 </html>
